@@ -49,5 +49,5 @@
 		</plugins>
 	</build>
 	<url>https://github.com/jkutk/iaip-dct</url>
-	<description>Interactive demonstration of DCT applied to an image. Features painting on the spatial and the frequency domain matrix while giving instant visual feedback in the other domain.</description>
+	<description>Interactive demonstration of DCT applied to an image. Features painting on the spatial or frequency domain matrix while giving instant visual feedback in the other domain. Editing the matrices as tables is supported as well, and produces the same feedback.</description>
 </project>
