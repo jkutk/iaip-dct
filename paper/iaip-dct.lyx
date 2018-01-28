@@ -1,0 +1,1857 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass extarticle
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding utf8
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 1
+\bibtex_command default
+\index_command default
+\paperfontsize 12
+\spacing single
+\use_hyperref true
+\pdf_bookmarks true
+\pdf_bookmarksnumbered false
+\pdf_bookmarksopen false
+\pdf_bookmarksopenlevel 1
+\pdf_breaklinks false
+\pdf_pdfborder false
+\pdf_colorlinks false
+\pdf_backref false
+\pdf_pdfusetitle true
+\papersize a4paper
+\use_geometry true
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine biblatex
+\cite_engine_type authoryear
+\biblio_style \use_bibtopic false
+\biblatex_bibstyle alphabetic
+\biblatex_citestyle alphabetic
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\leftmargin 2cm
+\topmargin 3cm
+\rightmargin 2cm
+\bottommargin 3cm
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Interactive Image Processing:
+\begin_inset Newline newline
+\end_inset
+
+Discrete Cosine Transformation
+\end_layout
+
+\begin_layout Author
+Peter Plaimer
+\begin_inset Newline newline
+\end_inset
+
+Johannes Kepler University Linz
+\begin_inset Newline newline
+\end_inset
+
+dct-tool@tk.jku.at
+\end_layout
+
+\begin_layout Abstract
+This paper looks into methods of teaching Discrete Cosine Transformation
+ (DCT) in the context of images.
+ DCT is a mathematical transformation used in lossy compression of images
+ and video.
+ As such, it is a topic addressed in university curricula for computer science.
+ While it is obvious to approach teaching DCT from a mathematical point
+ of view, this approach is not well-suited for all students alike.
+ We propose a software application that supports students in learning DCT
+ by offering an alternative, visual and interactive means to explore forward
+ an inverse DCT on arbitrary images.
+ We further provide exercises and concrete questions the students can work
+ on, in order to deepen their understanding of DCT based on example images
+ built into that software.
+ 
+\begin_inset CommandInset toc
+LatexCommand tableofcontents
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Introduction
+\end_layout
+
+\begin_layout Standard
+Many contemporary and everyday multimedia systems make use of Discrete Cosine
+ Transformation (DCT) at their very core.
+ DCT 
+\begin_inset CommandInset citation
+LatexCommand autocite
+key "ahmed_discrete_1974"
+literal "true"
+
+\end_inset
+
+is the basis for lossy compression of JPEG images 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "_iso/iec_1994"
+literal "true"
+
+\end_inset
+
+ and MPEG videos.
+ The undergraduate curriculum for computer science at the Johannes Kepler
+ University Linz 
+\begin_inset CommandInset citation
+LatexCommand autocite
+key "_curriculum_2017"
+literal "true"
+
+\end_inset
+
+ reflects the relevance of this technique in the respective field.
+ The curriculum comprises multiple classes where Discrete Cosine Transformation
+ (DCT) is an important topic, for example, lectures and exercises on multimedia
+ systems and a course on digital image processing.
+\end_layout
+
+\begin_layout Standard
+From our first hand experience we know that the level of mathematical skills
+ of students in these classes varies significantly, and so does their success
+ in understanding DCT.
+ Some colleagues struggle to get their heads around the role of coefficients
+ in the frequency domain matrix and their role in the image domain matrix
+ or vice-versa.
+ Informal interviews suggest that most of these students are seeking a visual
+ connection between the coefficients in the two domains.
+ They express the desire to see such connections especially when DCT is
+ applied to blocks of 
+\begin_inset Quotes eld
+\end_inset
+
+just
+\begin_inset Quotes erd
+\end_inset
+
+ 8 x 8 pixels during JPEG compression and decompression.
+\end_layout
+
+\begin_layout Standard
+We plan to contribute teaching material for classroom training, exercise
+ assignments, and self-study, which aids in understanding DCT in a visual
+ way.
+ Our approach consists of two major parts.
+ The first one is a software application that shows DCT in the context of
+ image processing and JPEG.
+ It offers an image representation of the spatial domain matrix and the
+ frequency domain matrix.
+ Its user interface allows for interactive manipulation of any coefficients
+ in each matrix, respectively the images, using a brush metaphor controlled
+ by the mouse pointer and other means.
+ Changes in one domain trigger instant execution of the DCT, providing instant
+ visual feedback in the other domain's image.
+ The second part is this paper which briefly introduces the topic, explains
+ the application and its user interface, and proposes exercises and questions
+ for deepening the understanding of DCT.
+ 
+\color red
+TODO: the java sources for the application and the latex/lyx sources paper,
+ as well as PDF version of the paper, shall be publicly available on github,
+ ok?
+\end_layout
+
+\begin_layout Standard
+The remainder of this paper offers a short recap of the definition of the
+ DCT and its application in JPEG in section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Related-work"
+
+\end_inset
+
+.
+ In section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Software-Application"
+
+\end_inset
+
+ we present the software application in the style of a user manual.
+ That section moves on with a list of exercises we propise.
+ It ends with an overview of the application's components and technical
+ requirements.
+ Section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Evaluation"
+
+\end_inset
+
+ evaluates the application based on the planned contribution.
+ We use section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Future-Work"
+
+\end_inset
+
+ to propose topics for future work based on the application or the general
+ theme of visualizing interactive image processing demos.
+ Section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Conclusion"
+
+\end_inset
+
+ concludes our work.
+\end_layout
+
+\begin_layout Section
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Related-work"
+
+\end_inset
+
+Related work
+\end_layout
+
+\begin_layout Standard
+
+\color red
+TODO: was is das umfeld, "wir beschäftigen uns mit dct in bildern".
+ referenzen sind bücher und papers.
+ über jede refernz schreibat man was für das eigene thema drin intressant
+ ist.
+ unterkapitel thematisch bauen, zb bildkompression überhaupt verlustftei/verlust
+behaftet, verwendung in konkreten anwendungen.
+ und was no cooler ist, zb fast forward dct (firma bioelektromech).
+ 
+\end_layout
+
+\begin_layout Standard
+
+\color red
+TODO: section intro
+\end_layout
+
+\begin_layout Subsection
+DCT
+\end_layout
+
+\begin_layout Standard
+
+\color red
+TODO: talk about DCT paper
+\begin_inset CommandInset citation
+LatexCommand cite
+key "ahmed_discrete_1974"
+literal "true"
+
+\end_inset
+
+, how DCT was defined there and how image compression is never mentioned
+ there ;)
+\end_layout
+
+\begin_layout Subsection
+JPEG
+\end_layout
+
+\begin_layout Standard
+
+\color red
+TODO: talk about JPEG standard 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "_iso/iec_1994"
+literal "true"
+
+\end_inset
+
+, main topic is annex A.3 DCT.
+ grab image of encoding/decoding process in order to put our application
+ into the right context.
+\end_layout
+
+\begin_layout Section
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Software-Application"
+
+\end_inset
+
+Interactive Software Application
+\end_layout
+
+\begin_layout Standard
+
+\color red
+TODO: dann kapitel "was hab i jetzt eigenclih gmacht" mit schönen titel.
+ kurz komponenten bzw elemte aufzähle nud wie sie zsammarbeiten, zb maven,
+ opencv artifact, jtable genau das aktualiesierne was pinseln geändert.
+ 
+\end_layout
+
+\begin_layout Standard
+This section contains the user manual and gives examples for questions to
+ be answered by students.
+ It furthermore provides an architecture overview of the application and
+ details for building the application from source.
+\end_layout
+
+\begin_layout Subsection
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:User-Manual"
+
+\end_inset
+
+User Manual
+\end_layout
+
+\begin_layout Standard
+This section describes the elements of the user interface, explains their
+ effects, and outlines relevant user cases.
+ The user interface comprises multiple windows of different types.
+ The UI overview in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:UI-Overview"
+
+\end_inset
+
+ depicts a typical situation during DCT exploration and serves as the reference
+ for the following description.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename img/ui_overview.png
+	lyxscale 50
+	width 100text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:UI-Overview"
+
+\end_inset
+
+This UI overview is an example of a typical situation during DCT exploration.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The top left window contains all settings for the brush, the tool for interactiv
+e manipulation of the matrices via image windows.
+ The other two windows in the top row are image windows, each one showing
+ an image representation of a matrix.
+ The left window depicts the spatial domain matrix, and right one the frequency
+ domain matrix.
+ The bottom row has two table windows.
+ A table window shows the components of a matrix as table, and allows value
+ manipulation via standard means of input.
+ Their matrices correspond to those in the image windows above.
+\end_layout
+
+\begin_layout Standard
+Any manipulation of a matrix value via an image window or via a table window
+ will instantly affect the other matrix, and reflect in all windows of all
+ matrices.
+ Manipulation of the spatial domain matrix triggers a forward DCT (FDCT)
+ and changes the frequency domain matrix.
+ Manipulation of the frequency domain matrix triggers an inverse DCT (IDCT)
+ and changes the spatial do
+\begin_inset space ~
+\end_inset
+
+main matrix.
+\end_layout
+
+\begin_layout Subsubsection
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Image-Window"
+
+\end_inset
+
+Image Window
+\end_layout
+
+\begin_layout Standard
+Each image window provides the same functions, regardless of the matrix
+ it is displaying.
+ The window uses a viewport showing all or a part of the image representation
+ of a matrix, see 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "subsec:Matrix-Visualization"
+
+\end_inset
+
+ for details.
+ In this representation, one pixel corresponds to one component of the matrix.
+\end_layout
+
+\begin_layout Standard
+The window features a set of buttons [+], [-], [=], and [1] to control the
+ magnification of the image, in a manner similar to image viewer applications.
+ Spinning the mouse wheel has the effect of zooming in and out, too.
+ The application provides scrollbars to navigate the image, if the magnified
+ view of the image does not fit into the space inside the window.
+ The status bar shows the value of the matrix component beneath the mouse
+ pointer.
+\end_layout
+
+\begin_layout Standard
+Each image window features a 
+\emph on
+File Menu
+\emph default
+, which operates on the respective matrix and its visualization.
+ The most important menu items from top to bottom:
+\end_layout
+
+\begin_layout Description
+New
+\begin_inset space ~
+\end_inset
+
+Matrix creates a new zero matrix.
+ A dialog will query the size.
+ As a consequence of the nature of DCT, this will also create the other
+ matrix anew, and all components will be zero as well.
+\end_layout
+
+\begin_layout Description
+Open
+\begin_inset space ~
+\end_inset
+
+Example
+\begin_inset space ~
+\end_inset
+
+Image
+\begin_inset space ~
+\end_inset
+
+>> offers a sub menu containing a list of built-in example images for easy
+ opening, with the same behavior like the next menu item.
+\end_layout
+
+\begin_layout Description
+Open
+\begin_inset space ~
+\end_inset
+
+Image
+\begin_inset space ~
+\end_inset
+
+File
+\begin_inset space ~
+\end_inset
+
+\SpecialChar ldots
+ opens an image file from the file system via the standard file dialog.
+ Colored images will automatically convert to grayscale.
+ The image window scales the matrix visualization to fit into the window.
+\end_layout
+
+\begin_layout Description
+Re-Open
+\begin_inset space ~
+\end_inset
+
+Last
+\begin_inset space ~
+\end_inset
+
+Image quickly opens the last image opened from the examples list or the
+ file system, discarding all changes to the matrix.
+ This is a very basic way of undoing changes.
+\end_layout
+
+\begin_layout Description
+Save
+\begin_inset space ~
+\end_inset
+
+Matrix
+\begin_inset space ~
+\end_inset
+
+As
+\begin_inset space ~
+\end_inset
+
+CSV
+\begin_inset space ~
+\end_inset
+
+\SpecialChar ldots
+ saves the matrix components into a comma-separated-values file for external
+ processing.
+\end_layout
+
+\begin_layout Description
+Save
+\begin_inset space ~
+\end_inset
+
+Visible
+\begin_inset space ~
+\end_inset
+
+Image
+\begin_inset space ~
+\end_inset
+
+As
+\begin_inset space ~
+\end_inset
+
+PNG
+\begin_inset space ~
+\end_inset
+
+\SpecialChar ldots
+ saves the whole matrix visualization image to the file system, ignoring
+ the image window viewport.
+ The image file is always of type PNG, no matter what extension the file
+ name features.
+ This function created all image files used in figure 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:example-SDI-and-FDI"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Description
+Copy
+\begin_inset space ~
+\end_inset
+
+Visible
+\begin_inset space ~
+\end_inset
+
+Image
+\begin_inset space ~
+\end_inset
+
+To
+\begin_inset space ~
+\end_inset
+
+Clipboard copies the whole matrix visualization image into the system clipboard,
+ ignoring the image window viewport.
+\end_layout
+
+\begin_layout Standard
+The window's menu bar features a Window Menu, containing items to create
+ further image windows and table windows.
+\end_layout
+
+\begin_layout Subsubsection
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Matrix-Visualization"
+
+\end_inset
+
+Matrix Visualization
+\end_layout
+
+\begin_layout Standard
+DCT is a transformation on a matrix, yielding another matrix.
+ In order to create the image representation of a matrix, the application
+ creates an image of the same size in pixels as the matrix has components.
+ One image pixel corresponds to one matrix component in the same row and
+ column as the pixel.
+\end_layout
+
+\begin_layout Standard
+Each component of both matrices is a real number, thus it has decimal digits
+ and a sign, which may be negative.
+ We can not just use the component value for the brightness of a pixel,
+ since contemporary computer displays can not show negative brightness,
+ and positive brightness is limited to integer values from 0 to 255 inclusive.
+\end_layout
+
+\begin_layout Standard
+The application offers multiple strategies to overcome this crucial limitation,
+ amongst which the user may choose one in each image window's 
+\emph on
+Value Menu
+\emph default
+.
+\end_layout
+
+\begin_layout Description
+Original
+\begin_inset space ~
+\end_inset
+
+mat
+\begin_inset space ~
+\end_inset
+
+clipped
+\begin_inset space ~
+\end_inset
+
+grey implements simple clamping of values in a grayscale image.
+ Negative component values show as brightness 0 in the pixel, values of
+ 255 and above will have brightness 255.
+\end_layout
+
+\begin_layout Description
+Auto
+\begin_inset space ~
+\end_inset
+
+contrast/brightness
+\begin_inset space ~
+\end_inset
+
+grey will uniformly and linearly scale the matrix values such that their
+ resulting brightness exactly fits into the range 0 to 255, if any component
+ exceeds these values.
+ In image processing terms, this roughly corresponds to an automatic contrast
+ and brightness correction.
+\end_layout
+
+\begin_layout Description
+Log(1+abs(v))
+\begin_inset space ~
+\end_inset
+
+to
+\begin_inset space ~
+\end_inset
+
+grey is based on 
+\color red
+TODO:REF-tönnies2005?
+\color inherit
+, which recommends a conversion to a grayscale image using a logarithmic
+ scale.
+ In order to avoid the impossible calculation of the logarithm of values
+ less than one, he introduces the addition of 1 before the log operation.
+ This way, the intuitive mapping of component value 0 to pixel brightness
+ 0 is still intact.
+ The actual implementation employs automatic contrast adaption after that,
+ in order to use the maximum brightness value 255.
+\end_layout
+
+\begin_layout Description
+Log(1+v)
+\begin_inset space ~
+\end_inset
+
+to
+\begin_inset space ~
+\end_inset
+
++yellow/-cyan is our extension of the aforementioned strategy, additionally
+ encoding the sign of the component value in the color of the pixel.
+ See 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:UI-Overview"
+
+\end_inset
+
+ for an example.
+ Positive component values use yellow color, negative values use cyan, zero
+ is black still.
+ 
+\color red
+TODO: the following exmaplanation into a separate section, maybe technical
+ stuff?
+\color inherit
+ We choose these colors with contemporary RGB displays and human perception
+ in mind, and we aim for high brightness and contrast, while still retaining
+ good color separation for positive and negative signs.
+ The green color component of pixels in these displays is the color with
+ the best reception and resolution in the human eye 
+\color red
+TODO:REF_something
+\color inherit
+, yielding high brightness and contrast.
+ We use green for both signs in order to leverage these favorable attributes
+ in all cases.
+ With the same brightness, we add either red or blue, depending on the sign.
+ This has multiple advantages.
+ We further gain brightness and contrast, vital for visual value estimation.
+ We leave a minimum of available brightness and contrast capability of the
+ display unused.
+ We achieve high color separation, due to red and blue being on opposite
+ sides of green in the color spectrum.
+ We add no crosstalk, because we use a separate display subpixel per sign.
+\end_layout
+
+\begin_layout Subsubsection
+Brush Window
+\end_layout
+
+\begin_layout Standard
+Interactive manipulation of a matrix via its image representation inside
+ an image window uses the brush metaphor.
+ Pressing the primary mouse button (PMB) while the mouse pointer is inside
+ the image viewport will modify the matrix by applying the brush's primary
+ function, the secondary mouse button (SMB) applies the brush's secondary
+ function, respectively.
+ Dragging the mouse pointer while pressing a mouse button will repeat the
+ function once for every matrix component entered with the mouse pointer,
+ thus enabling a natural way of painting on the matrix.
+\end_layout
+
+\begin_layout Standard
+The Brush Window allows for configuration of a number of brush attributes:
+\end_layout
+
+\begin_layout Description
+Size determines the size of the brush.
+ Its exact semantics depend on the brush shape.
+\end_layout
+
+\begin_layout Description
+Shape chooses a shape of the brush and indirectly the strength of its impact
+ on the components affected.
+ The available shapes are:
+\begin_inset Separator latexpar
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Description
+Square is a filled square with hard edges with length 
+\emph on
+size
+\emph default
+.
+ The mouse pointer determines the center component of the square.
+ 
+\end_layout
+
+\begin_layout Description
+Hard
+\begin_inset space ~
+\end_inset
+
+Circle is a disk of diameter 
+\emph on
+size
+\emph default
+ with a hard edge.
+ The mouse pointer determines the center component of the disk.
+ The brush function affects all components covered by the brush equally.
+\end_layout
+
+\begin_layout Description
+Soft
+\begin_inset space ~
+\end_inset
+
+Circle is a disk of diameter 
+\emph on
+size
+\emph default
+ with a soft edge.
+ The mouse pointer determines the center component of the disk.
+ The brush function fully affects the center component.
+ The strength of the effect on other components decreases with their distance
+ from the center of the brush.
+ It is minimal for components on the edge of the disk.
+ 
+\color red
+TODO: explain this particular application of alpha blending in a separate
+ section?
+\end_layout
+
+\end_deeper
+\begin_layout Description
+Value determines the strength of the brush function.
+ Can be negative.
+ Its exact semantics depend on the brush mode.
+\end_layout
+
+\begin_layout Description
+Mode chooses the pair of functions the brush applies to the matrix:
+\begin_inset Separator latexpar
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Description
+Set
+\begin_inset space ~
+\end_inset
+
+Value sets the affected components value to equal 
+\emph on
+brush value
+\emph default
+ when pressing the PMB.
+ The SMB sets the components value 0.
+\end_layout
+
+\begin_layout Description
+Add
+\begin_inset space ~
+\end_inset
+
+Value adds 
+\emph on
+brush value
+\emph default
+ to the components value when applied with the PMB, and the SMB subtracts
+ the 
+\emph on
+brush value
+\emph default
+ from the component value.
+\end_layout
+
+\begin_layout Description
+Multiply
+\begin_inset space ~
+\end_inset
+
+% interprets 
+\emph on
+brush value
+\emph default
+ as percentage and applies the resulting number to the component value using
+ a multiplication for the PMB and a division for the SMB.
+ For example, value 125 represents 125 percent, which equals the number
+ 1.25 in decimal notation.
+ I will therefore increase the component value by one fourth when using
+ the PMB and reduce it by one fifth when applied by the SMB.
+\end_layout
+
+\end_deeper
+\begin_layout Subsubsection
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Table-Window"
+
+\end_inset
+
+Table Window
+\end_layout
+
+\begin_layout Standard
+A table window shows the matrix and its component values in a table.
+ Standard UI interaction allows for changing single component values via
+ keyboard.
+ When drawing the brush in an image window, table windows of the same matrix
+ change their cell selection such that it highlights the components affected
+ by the brush.
+ A table window's menu bar offers the File Menu and the Window Menu as described
+ in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "subsec:Image-Window"
+
+\end_inset
+
+.
+ minus the image export functions.
+ 
+\end_layout
+
+\begin_layout Subsection
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Exercises"
+
+\end_inset
+
+Exercises
+\end_layout
+
+\begin_layout Standard
+This section contains a list of topics investigate and proposes exercises
+ and questions suitable for classroom demonstration or deepening self-studies.
+ For each topic we introduce the context, give instructions to reconstruct
+ the situation under discussion, and we pose questions in order to excite
+ the students' curiosity.
+ The instructions often refer to the Spatial Domain (SD), Spatial Domain
+ Image (SDI), Frequency Domain (FD), and the Frequency Domain Image (FDI),
+ using the respective abbreviations.
+\end_layout
+
+\begin_layout Standard
+
+\color red
+TODO: move this subsection into section 4 - evaluation?
+\end_layout
+
+\begin_layout Standard
+
+\color red
+TODO: add one or two small pictures of the respective SDI/FDI to each exercise?
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename img/ex2-comp-02-s.png
+	lyxscale 800
+	width 20text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:JPEG-DCT:-SDI02"
+
+\end_inset
+
+JPEG DCT: SDI for FD component 0/2
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset space \hfill{}
+\end_inset
+
+
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename img/ex2-comp-20-s.png
+	lyxscale 800
+	width 20text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:JPEG-DCT:-SDI20"
+
+\end_inset
+
+JPEG DCT: SDI for FD component 2/0
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset space \hfill{}
+\end_inset
+
+
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename img/ex2-comp-02_20-s.png
+	lyxscale 800
+	width 20text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:JPEG-DCT:-SDI0220"
+
+\end_inset
+
+JPEG DCT: SDI for FD component 0/2 and 2/0 combined
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset space \hfill{}
+\end_inset
+
+
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename img/ex2-comp-22-s.png
+	lyxscale 800
+	width 20text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:JPEG-DCT:-SDI22"
+
+\end_inset
+
+JPEG DCT: SDI for FD component 2/2
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset VSpace vfill
+\end_inset
+
+
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename img/ex3-qllp-d060-f.png
+	lyxscale 12
+	width 30text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Low-pass:-60"
+
+\end_inset
+
+Low pass: 60 % of Lenna's FDI deleted diagonally
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset space \hfill{}
+\end_inset
+
+
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename img/ex4-edhp-z240-f.png
+	lyxscale 12
+	width 30text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:High-pass:-FDI"
+
+\end_inset
+
+High pass: Lenna's FDI with a block of low-frequency components deleted
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset space \hfill{}
+\end_inset
+
+
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename img/ex1-identity.png
+	lyxscale 800
+	width 30text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Identity-matrix"
+
+\end_inset
+
+The Identity matrix looks the same in SDI and FDI
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset VSpace vfill
+\end_inset
+
+
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename img/ex3-qllp-d090-s.png
+	lyxscale 12
+	width 30text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Low-pass:-SDI90"
+
+\end_inset
+
+Low pass: SDI of Lenna with 90 % FD deleted diagonally
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset space \hfill{}
+\end_inset
+
+
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename img/ex4-edhp-z240-s.png
+	lyxscale 12
+	width 30text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:High-pass:-SDI"
+
+\end_inset
+
+High pass: SDI shows highligted edges
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset space \hfill{}
+\end_inset
+
+
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename img/ex5-lsss-dot128-s.png
+	lyxscale 25
+	width 30text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Self-Similarity:-SDI"
+
+\end_inset
+
+Self-Similarity: This SDI looks very similar to its own FDI
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:example-SDI-and-FDI"
+
+\end_inset
+
+SDI and FDI from the exercises' intermediate and final steps 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Identity Matrix
+\end_layout
+
+\begin_layout Standard
+The identity matrix clearly shows the matrix transformation nature of the
+ DCT.
+ When loaded into the SD or the FD, the resulting matrix is always the identity
+ matrix.
+\end_layout
+
+\begin_layout Standard
+Exercise: Load the example image identity-8 (
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Identity-matrix"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) into either one matrix.
+\end_layout
+
+\begin_layout Standard
+Additional questions: Are there any other simple matrices showing visual
+ similarities in the SDI and FDI?
+\end_layout
+
+\begin_layout Subsubsection
+JPEG DCT
+\end_layout
+
+\begin_layout Standard
+JPEG compression feeds 8 by 8 blocks of pixels into an FDCT to obtain the
+ FD matrix.
+ Similarly, the decompression feeds an 8 by 8 matrix into its IDCT in order
+ to reconstruct the SDI.
+ Visual explanations of these step often use a diagram showing the SDI pattern
+ every single FD component adds to the image 
+\color red
+TODO:REF_english_wikipedia_DCT_or_better?
+\color inherit
+.
+ This application allows to reproduce the elements of these diagrams interactive
+ly.
+ Furthermore, one can study the superposition of the patterns from multiple
+ coefficients.
+\end_layout
+
+\begin_layout Standard
+Exercise: Configure a size 1 square brush with value 255 in 
+\emph on
+set/zero
+\emph default
+ mode.
+ Set SDI visualization to 
+\emph on
+yellow/cyan
+\emph default
+.
+ Apply the PMB on single components of the FDI, use SMB to remove the value.
+\end_layout
+
+\begin_layout Standard
+Additional questions: What is the effect of FD component in row 0, column
+ 0 on the SDI? How do FD components n/0 and 0/n relate to each other (see
+ figures 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:JPEG-DCT:-SDI02"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:JPEG-DCT:-SDI20"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ for n=2)? How and why is the SDI for the combination of FDI n/0 and 0/n
+ different to n/n alone (see figures
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:JPEG-DCT:-SDI0220"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:JPEG-DCT:-SDI22"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ for n=2)?
+\end_layout
+
+\begin_layout Subsubsection
+JPEG Quantization Loss / Low-Pass Filter
+\end_layout
+
+\begin_layout Standard
+JPEG compression is lossy due to the quantization step after the FDCT.
+ This step basically discards high-frequency components with small absolute
+ values, in other terms, it is a low-pass filter.
+ When losing too much information, the decompressed image shows blurred
+ edges, blocky colors, ringing, and other types of artifacts.
+ We can simulate this loss of information in quantization and immediately
+ see its effect in the SDI.
+\end_layout
+
+\begin_layout Standard
+Exercise: In an SDI window, open example image lena-512 in an SDI window,
+ 
+\emph on
+zoom to original size
+\emph default
+, choose visualization 
+\emph on
+original
+\emph default
+.
+ Configure a size 80 square brush and choose mode 
+\emph on
+set/zero
+\emph default
+.
+ In an FDI set visualization 
+\emph on
+log-gray
+\emph default
+.
+ In that FDI, start applying the brush in the bottom right corner.
+ Press and hold SMB and start sweeping in a diagonal direction from bottom-left
+ to top-right and back.
+ While still sweeping, slowly advance to the top-left corner, deleting lower
+ and lower frequencies (figure 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Low-pass:-60"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+).
+ You are most likely to see no detrimental effect in the SDI up until the
+ point where the bottom-right half of the FDI is cleared.
+ Keep sweeping and watch closely as the first artifacts become visible (figure
+ 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Low-pass:-SDI90"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Standard
+Additional questions: What is similar or different to the effect seen before,
+ if one starts clearing coefficients at the bottom edge of the FDI, sweeping
+ from left to right and back, slowly moving to the top?
+\end_layout
+
+\begin_layout Subsubsection
+Edge detection / High-Pass Filter
+\end_layout
+
+\begin_layout Standard
+Edges in SDI correspond to high amplitudes in high-frequency coefficients.
+ One can use this property to find edges by manipulating the FDI mimicking
+ a high-pass filter.
+\end_layout
+
+\begin_layout Standard
+Exercise: In an SDI window, open example image lena-512 in an SDI window,
+ choose visualization 
+\emph on
+auto-contrast/brightness
+\emph default
+.
+ Configure a size 240 hard circle brush and choose mode 
+\emph on
+set/zero
+\emph default
+.
+ In an FDI apply the brush by SMB at component 0/0 (figures 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:High-pass:-FDI"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+).
+ The SDI immerdiately shows highlighted edges (figure 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:High-pass:-SDI"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Standard
+Additional questions: How does the brush size influence the kind of edges
+ this method finds? When clearing the coefficient 0/0 only, how does it
+ change the character of the filter operation?
+\end_layout
+
+\begin_layout Subsubsection
+Large-Scale Self-Similarity
+\end_layout
+
+\begin_layout Standard
+Exercise: Create a new matrix of size 256 by 256.
+ Configure brush size 32, 
+\emph on
+hard circle
+\emph default
+ shape, value 255, mode 
+\emph on
+add/subtract
+\emph default
+.
+ Choose 
+\emph on
+log-gray
+\emph default
+ matrix visualization for SDI and FDI.
+ Apply the brush in SDI at 128/128 using PMB.
+ This produces a pattern of dozens of wiggly lines and loops in the FDI.
+ Now apply the brush in the FDI at 128/128.
+ Now SDI (figure 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:Self-Similarity:-SDI"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+) and FDI show striking similarities.
+ Question: What are the major reasons for this result?
+\end_layout
+
+\begin_layout Standard
+Additional questions: What patterns do you expect when applying the other
+ brush types instead? Or different bruh sizes?
+\end_layout
+
+\begin_layout Subsection
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Technical-description"
+
+\end_inset
+
+Technical description
+\end_layout
+
+\begin_layout Standard
+
+\color red
+TODO: rundown of components, tools and runtime requirements:
+\color inherit
+ Java 7, swing library and programming model, swing jtable extension for
+ selection feedback, opencv 2.4.9 for dct (mention reason: digitla image processin
+g class), maven fragment nu.pattern.opencv for opencv/java-bindings, Eclipse
+ Neon 4.6, ubuntu 14.04 LTS, github 
+\begin_inset CommandInset href
+LatexCommand href
+name "https://github.com/jkutk/iaip-dct"
+target "https://github.com/jkutk/iaip-dct"
+literal "false"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Evaluation"
+
+\end_inset
+
+Evaluation
+\end_layout
+
+\begin_layout Standard
+
+\color red
+TODO: dann das Evaluation als volles kapitel.
+ ist es gut gegangen, was kann man damit jetzt wie gut tun.
+ hat man ziele erreicht, gschickterweise in introduction was ziel ist und
+ heir nur ja habs erreicht.
+ 
+\end_layout
+
+\begin_layout Standard
+
+\color red
+TODO: Exercises section goes here?
+\end_layout
+
+\begin_layout Standard
+
+\color red
+TODO: explanation of design choices for matrix visualization yellow/cyan
+ goes here?
+\end_layout
+
+\begin_layout Standard
+
+\color red
+TODO: short story bout problems during implementation.
+ zb opencv artifact und java.nio passe nicht zsamm, oder opencv libpng problem
+ und wie gelöst.
+\end_layout
+
+\begin_layout Standard
+
+\color red
+TODO: any positive surprises along the whole process of designing, implementing,
+ evaluation ...?
+\end_layout
+
+\begin_layout Section
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Future-Work"
+
+\end_inset
+
+Future Work
+\end_layout
+
+\begin_layout Standard
+
+\color red
+TODO: nicht was mach i damit konkret sondern was kann sonstwer damit machen.
+ aus unseer sicht feature complete, aber ideen.
+ zb man macht das mit wavelets, oder audio, oder in übung statt opencv dct
+ die selber implementierte aus übung 3 (?) verwednen.
+ 
+\end_layout
+
+\begin_layout Standard
+
+\color red
+TODO: propose application features: load csv file.
+ swap SD and FD.
+\end_layout
+
+\begin_layout Section
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Conclusion"
+
+\end_inset
+
+Conclusion
+\end_layout
+
+\begin_layout Standard
+
+\color red
+TODO: wie einleitung aber in vergangneheitsform aber kürzer und hinweis
+ auf ergebnis.
+\end_layout
+
+\begin_layout Standard
+
+\color red
+TODO: fix bibtex generated bibliography.
+ missing authors of webpage refs crash bst style alphadin.
+ working styles e.g.
+ acm do not print webpage urls and miss other info.
+ which bst style is the best / suitable, ...? resort to writing the bibliography
+ manually?
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset bibtex
+LatexCommand bibtex
+bibfiles "iaip-dct"
+options "bibtotoc,plain"
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
