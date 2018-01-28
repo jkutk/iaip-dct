@@ -120,9 +120,9 @@ This paper looks into methods of teaching Discrete Cosine Transformation
  As such, it is a topic addressed in university curricula for computer science.
  While it is obvious to approach teaching DCT from a mathematical point
  of view, this approach is not well-suited for all students alike.
- We propose a software application that supports students in learning DCT
- by offering an alternative, visual and interactive means to explore forward
- an inverse DCT on arbitrary images.
+ We propose and develop a software application that supports students in
+ learning DCT by offering an alternative, visual and interactive means to
+ explore forward an inverse DCT on arbitrary images.
  We further provide exercises and concrete questions the students can work
  on, in order to deepen their understanding of DCT based on example images
  built into that software.
@@ -150,21 +150,30 @@ literal "true"
 
 \end_inset
 
-is the basis for lossy compression of JPEG images 
+is the basis for lossy compression of images in JPEG 
 \begin_inset CommandInset citation
-LatexCommand cite
-key "_iso/iec_1994"
-literal "true"
+LatexCommand citetitle
+key "_itu_1992"
+literal "false"
 
 \end_inset
 
- and MPEG videos.
+, of videos in MJPEG and Theora, and, in a modified version, for audio data
+ in MP3 and Vorbis 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "_discrete_2017"
+literal "false"
+
+\end_inset
+
+.
  The undergraduate curriculum for computer science at the Johannes Kepler
  University Linz 
 \begin_inset CommandInset citation
-LatexCommand autocite
-key "_curriculum_2017"
-literal "true"
+LatexCommand cite
+key "cs.jku.at_curriculum_2017"
+literal "false"
 
 \end_inset
 
@@ -196,7 +205,7 @@ just
 \end_layout
 
 \begin_layout Standard
-We plan to contribute teaching material for classroom training, exercise
+We plan to contribute teaching material for classroom demonstration, exercise
  assignments, and self-study, which aids in understanding DCT in a visual
  way.
  Our approach consists of two major parts.
@@ -213,10 +222,6 @@ We plan to contribute teaching material for classroom training, exercise
  the application and its user interface, and proposes exercises and questions
  for deepening the understanding of DCT.
  
-\color red
-TODO: the java sources for the application and the latex/lyx sources paper,
- as well as PDF version of the paper, shall be publicly available on github,
- ok?
 \end_layout
 
 \begin_layout Standard
@@ -296,50 +301,55 @@ behaftet, verwendung in konkreten anwendungen.
 TODO: section intro
 \end_layout
 
+\begin_layout Standard
+This section gives a brief overview of the related work from definition
+ of DCT in 1974 via the JPEG standard from 1992 to todays usage of JPEG.
+ 
+\end_layout
+
 \begin_layout Subsection
 DCT
 \end_layout
 
 \begin_layout Standard
-
-\color red
-TODO: talk about DCT paper
+According to its original paper 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "ahmed_discrete_1974"
-literal "true"
+literal "false"
 
 \end_inset
 
-, how DCT was defined there and how image compression is never mentioned
- there ;)
+ from 1974, DCT was defined as a tool in digital image processing for the
+ purpose of feature selection in pattern recognition and for scalar-type
+ Wiener filtering.
+ The goal was to create an orthogonal transform along with an algorithm
+ that allows its fast computation.
+ After the mathematical definition of the DCT, the paper develops an algorithm
+ which uses the fast Fourier transform (FFT) as the basis for the DCT and
+ its inverse operation, the IDCT.
+ The paper states, that DCT can be used in multiple dimensions, that is,
+ the rows and columns of an image.
+ Nevertheless, it does not mention the idea of using DCT for image compression.
 \end_layout
 
 \begin_layout Subsection
-JPEG Standard
+JPEG
 \end_layout
 
 \begin_layout Standard
-
-\color red
-TODO: talk about JPEG standard 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "_iso/iec_1994"
-literal "true"
-
-\end_inset
-
-, main topic is annex A.3 DCT.
- grab image of encoding/decoding process in order to put our application
- into the right context.
+JPEG is today's de facto standard for lossy image compression of real-life
+ photography material in consumer electronics, multimedia applications,
+ and the World Wide Web in general.
+ It uses DCT at its very core.
+ 
 \end_layout
 
 \begin_layout Standard
-The JPEG standard 
+The 1992 JPEG standard 
 \begin_inset CommandInset citation
 LatexCommand cite
-key "_iso/iec_1994"
+key "_itu_1992"
 literal "false"
 
 \end_inset
@@ -487,7 +497,7 @@ v
 \begin_layout Standard
 \begin_inset Formula 
 \begin{equation}
-S_{vu}=\frac{1}{4}C_{u}C_{v}\sum_{x=0}^{7}\sum_{y=0}^{7}s_{yx}\cos\frac{(2x+1)u\pi}{16}\cos\frac{(2y+1)v\pi}{16}\label{eq:FDCT}
+\textrm{FDCT: }S_{vu}=\frac{1}{4}C_{u}C_{v}\sum_{x=0}^{7}\sum_{y=0}^{7}s_{yx}\cos\frac{(2x+1)u\pi}{16}\cos\frac{(2y+1)v\pi}{16}\label{eq:FDCT}
 \end{equation}
 
 \end_inset
@@ -495,7 +505,7 @@ S_{vu}=\frac{1}{4}C_{u}C_{v}\sum_{x=0}^{7}\sum_{y=0}^{7}s_{yx}\cos\frac{(2x+1)u\
 
 \begin_inset Formula 
 \begin{equation}
-S_{yx}=\frac{1}{4}\sum_{u=0}^{7}\sum_{v=0}^{7}C_{u}C_{v}s_{vu}\cos\frac{(2x+1)u\pi}{16}\cos\frac{(2y+1)v\pi}{16}\label{eq:IDCT}
+\textrm{IDCT: }S_{yx}=\frac{1}{4}\sum_{u=0}^{7}\sum_{v=0}^{7}C_{u}C_{v}s_{vu}\cos\frac{(2x+1)u\pi}{16}\cos\frac{(2y+1)v\pi}{16}\label{eq:IDCT}
 \end{equation}
 
 \end_inset
@@ -504,10 +514,9 @@ S_{yx}=\frac{1}{4}\sum_{u=0}^{7}\sum_{v=0}^{7}C_{u}C_{v}s_{vu}\cos\frac{(2x+1)u\
 \end_layout
 
 \begin_layout Standard
-where
 \begin_inset Formula 
 \begin{equation}
-c_{u},c_{v}=\begin{cases}
+\textrm{where: }c_{u},c_{v}=\begin{cases}
 1/\sqrt{2} & u,v=0\\
 1 & \mathrm{otherwise}
 \end{cases}\label{eq:dct-case}
@@ -516,6 +525,13 @@ c_{u},c_{v}=\begin{cases}
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+The relatively simple structures of these equations provide a good opportunity
+ for a coding exercise that aims to implement FDCT and IDCT of one 8 by
+ 8 block extracted from an image.
+ This, however is not in scope of this paper.
 \end_layout
 
 \begin_layout Section
@@ -1161,26 +1177,18 @@ Exercises
 \end_layout
 
 \begin_layout Standard
-This section contains a list of topics investigate and proposes exercises
- and questions suitable for classroom demonstration or deepening self-studies.
- For each topic we introduce the context, give instructions to reconstruct
- the situation under discussion, and we pose questions in order to excite
- the students' curiosity.
+This section is a collection of exercises covering basic topics of DCT and
+ its application in JPEG.
+ These exercises can also serve as a basis for classroom demonstration or
+ deepening self-studies.
+ In each exercise we introduce the context, give instructions to reconstruct
+ the situation under discussion.
+ A set of images helps to clear out ambiguities.
+ In addition to that, we pose additional questions in order to excite the
+ students' curiosity.
  The instructions often refer to the Spatial Domain (SD), Spatial Domain
  Image (SDI), Frequency Domain (FD), and the Frequency Domain Image (FDI),
  using the respective abbreviations.
-\end_layout
-
-\begin_layout Standard
-
-\color red
-TODO: move this subsection into section 4 - evaluation?
-\end_layout
-
-\begin_layout Standard
-
-\color red
-TODO: add one or two small pictures of the respective SDI/FDI to each exercise?
 \end_layout
 
 \begin_layout Standard
@@ -1657,11 +1665,15 @@ JPEG compression feeds 8 by 8 blocks of pixels into an FDCT to obtain the
  FD matrix.
  Similarly, the decompression feeds an 8 by 8 matrix into its IDCT in order
  to reconstruct the SDI.
- Visual explanations of these step often use a diagram showing the SDI pattern
- every single FD component adds to the image 
-\color red
-TODO:REF_english_wikipedia_DCT_or_better?
-\color inherit
+ Visual explanations of these step often use a diagram showing a grid of
+ SDI patterns that every single FD component adds to the image 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "_file:dctjpeg.png_????,_discrete_2017"
+literal "false"
+
+\end_inset
+
 .
  This application allows to reproduce the elements of these diagrams interactive
 ly.
@@ -1896,7 +1908,7 @@ Additional questions: What patterns do you expect when applying the other
  brush types instead? Or different brush sizes?
 \end_layout
 
-\begin_layout Subsection
+\begin_layout Subsubsection
 \begin_inset CommandInset label
 LatexCommand label
 name "subsec:Technical-description"
@@ -1952,12 +1964,6 @@ TODO: dann das Evaluation als volles kapitel.
 \begin_layout Standard
 
 \color red
-TODO: Exercises section goes here?
-\end_layout
-
-\begin_layout Standard
-
-\color red
 TODO: explanation of design choices for matrix visualization yellow/cyan
  goes here?
 \end_layout
@@ -1977,6 +1983,19 @@ TODO: any positive surprises along the whole process of designing, implementing,
  evaluation ...?
 \end_layout
 
+\begin_layout Standard
+We have created an interactive application presenting DCT in an image processing
+ context.
+ The application is suitable for classroom demonstration, as well as exercise
+ assignment and self-studies.
+ In order to aid all three scenarios, we provide a set of exercises covering
+ a range of basic topics of DCT and its application in JPEG.
+ An extensive user manual explains all options, functions, and their rationale.
+ The technical section gives an overview of the components involved in creating
+ the application and a rough outline of what it takes to re-build the applicatio
+n from its sources.
+\end_layout
+
 \begin_layout Section
 \begin_inset CommandInset label
 LatexCommand label
@@ -1988,20 +2007,28 @@ Future Work
 \end_layout
 
 \begin_layout Standard
+While we deem the application feature complete regarding the initial plan,
+ we present an informal list of ideas that did not make it into the application,
+ but can be part of anyones future work.
+ Allow switching to FFT (additional phase-image) or wavelet transformation
+ (JPEG 2000 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "_jpeg_2018-1"
+literal "false"
 
-\color red
-TODO: nicht was mach i damit konkret sondern was kann sonstwer damit machen.
- aus unseer sicht feature complete, aber ideen.
- zb man macht das mit wavelets, oder audio, oder in übung statt opencv dct
- die selber implementierte aus übung 3 (?) verwednen.
- 
-\end_layout
+\end_inset
 
-\begin_layout Standard
-
-\color red
-TODO: propose application features: load csv file.
- swap SD and FD.
+).
+ Replace calling the OpenCV DCT with your own implementation, or with an
+ interface, so that many students can implement the DCT algorithm in a single
+ method, as part of an exercise assignment.
+ Enable importing CSV files.
+ Add a simple way to copy the SD matrix to FDI or vice-versa.
+ Make the brush border visible while hovering over the image representations.
+ Apply DCT or any of the other transforms to audio data, with graphical
+ representations of amplitude over time and frequency spectrum over time,
+ and similar interactive manipulation of these representations.
 \end_layout
 
 \begin_layout Section
@@ -2015,21 +2042,16 @@ Conclusion
 \end_layout
 
 \begin_layout Standard
-
-\color red
-TODO: wie einleitung aber in vergangneheitsform aber kürzer und hinweis
- auf ergebnis.
-\end_layout
-
-\begin_layout Standard
-
-\color red
-TODO: fix bibtex generated bibliography.
- missing authors of webpage refs crash bst style alphadin.
- working styles e.g.
- acm do not print webpage urls and miss other info.
- which bst style is the best / suitable, ...? resort to writing the bibliography
- manually?
+We have successfully created the interactive application we planned in the
+ beginning.
+ We are confident that it aids in teaching and in understanding DCT in a
+ visual way, not only by supporting the exercises we deliver in this paper,
+ but also by offering the freedom to load arbitrary images and manipulate
+ these using the brush.
+ On top of that, we encourage anyone who is interested to extend this set
+ of learning material in any useful way.
+ Therefore we release the source code of the application, and the source
+ code and imagess of this paper, under a GPL license on github.
 \end_layout
 
 \begin_layout Standard
