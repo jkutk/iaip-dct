@@ -237,7 +237,7 @@ reference "sec:Software-Application"
 \end_inset
 
  we present the software application in the style of a user manual.
- That section moves on with a list of exercises we propise.
+ That section moves on with a list of exercises we propose.
  It ends with an overview of the application's components and technical
  requirements.
  Section 
@@ -316,7 +316,7 @@ literal "true"
 \end_layout
 
 \begin_layout Subsection
-JPEG
+JPEG Standard
 \end_layout
 
 \begin_layout Standard
@@ -333,6 +333,189 @@ literal "true"
 , main topic is annex A.3 DCT.
  grab image of encoding/decoding process in order to put our application
  into the right context.
+\end_layout
+
+\begin_layout Standard
+The JPEG standard 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "_iso/iec_1994"
+literal "false"
+
+\end_inset
+
+ defines two classes of encoding and decoding processes, lossless and lossy
+ processes.
+ For us, the latter ones are of interest, as these use DCT for compression
+ and decompression.
+ Figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:JPEG-DCT-based-encoder"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ provides an overview of the encoder employed, for the special case of a
+ single-component image.
+\end_layout
+
+\begin_layout Standard
+The part we take a closer look at in this paper is the 
+\emph on
+Forward DCT
+\emph default
+ (denoted FDCT), and its counterpart in the decoder, the 
+\emph on
+Inverse DCT
+\emph default
+ (IDCT).
+ In the simplest amongst the DCT-based processes, the 
+\emph on
+baseline sequential
+\emph default
+ process, the encoder separates the image into blocks of 8 by 8 pixels and
+ feeds every single into the FDCT.
+ The FDCT's result comprises 64 coefficients representing the frequency
+ domain projection of the spatial domain image block.
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename img/jpeg-dct-encoder.png
+	width 70text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:JPEG-DCT-based-encoder"
+
+\end_inset
+
+JPEG DCT-based encoder, simplified diagram
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In section A.3 the standard defines details for the FDCT.
+ Inside a block, the pixels are referenced by a two-part index.
+ The index components 
+\emph on
+x
+\emph default
+ and 
+\emph on
+y
+\emph default
+ denote the pixel's horizontal and vertical position, from left to right,
+ and from top to bottom, starting with 0 for both components.
+ That section also gives an 
+\emph on
+informative
+\emph default
+ specification for the FDCT and IDCT using equations 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:FDCT"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:IDCT"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:dct-case"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ The indexes 
+\emph on
+u
+\emph default
+ and 
+\emph on
+v
+\emph default
+ serve to address the coefficients in the resulting 8 by 8 matrix holding
+ the 64 coefficients, in the same way as x and y address pixels the image
+ block.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+S_{vu}=\frac{1}{4}C_{u}C_{v}\sum_{x=0}^{7}\sum_{y=0}^{7}s_{yx}\cos\frac{(2x+1)u\pi}{16}\cos\frac{(2y+1)v\pi}{16}\label{eq:FDCT}
+\end{equation}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+S_{yx}=\frac{1}{4}\sum_{u=0}^{7}\sum_{v=0}^{7}C_{u}C_{v}s_{vu}\cos\frac{(2x+1)u\pi}{16}\cos\frac{(2y+1)v\pi}{16}\label{eq:IDCT}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+where
+\begin_inset Formula 
+\begin{equation}
+c_{u},c_{v}=\begin{cases}
+1/\sqrt{2} & u,v=0\\
+1 & \mathrm{otherwise}
+\end{cases}\label{eq:dct-case}
+\end{equation}
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section
@@ -375,10 +558,10 @@ User Manual
 This section describes the elements of the user interface, explains their
  effects, and outlines relevant user cases.
  The user interface comprises multiple windows of different types.
- The UI overview in 
+ The GUI overview in 
 \begin_inset CommandInset ref
 LatexCommand formatted
-reference "fig:UI-Overview"
+reference "fig:GUI-Overview"
 
 \end_inset
 
@@ -409,11 +592,11 @@ status open
 \begin_layout Plain Layout
 \begin_inset CommandInset label
 LatexCommand label
-name "fig:UI-Overview"
+name "fig:GUI-Overview"
 
 \end_inset
 
-This UI overview is an example of a typical situation during DCT exploration.
+This GUI overview is an example of a typical situation during DCT exploration.
 \end_layout
 
 \end_inset
@@ -483,8 +666,12 @@ reference "subsec:Matrix-Visualization"
 \end_layout
 
 \begin_layout Standard
-The window features a set of buttons [+], [-], [=], and [1] to control the
- magnification of the image, in a manner similar to image viewer applications.
+The window features a set of buttons [+], [
+\begin_inset Formula $-$
+\end_inset
+
+], [=], and [1] to control the magnification of the image, in a manner similar
+ to image viewer applications.
  Spinning the mouse wheel has the effect of zooming in and out, too.
  The application provides scrollbars to navigate the image, if the magnified
  view of the image does not fit into the space inside the window.
@@ -755,7 +942,7 @@ to
  See 
 \begin_inset CommandInset ref
 LatexCommand formatted
-reference "fig:UI-Overview"
+reference "fig:GUI-Overview"
 
 \end_inset
 
@@ -764,7 +951,7 @@ reference "fig:UI-Overview"
  is black still.
  
 \color red
-TODO: the following exmaplanation into a separate section, maybe technical
+TODO: the following explanation into a separate section, maybe technical
  stuff?
 \color inherit
  We choose these colors with contemporary RGB displays and human perception
@@ -785,7 +972,7 @@ TODO:REF_something
  display unused.
  We achieve high color separation, due to red and blue being on opposite
  sides of green in the color spectrum.
- We add no crosstalk, because we use a separate display subpixel per sign.
+ We add no crosstalk, because we use a separate display sub-pixel per sign.
 \end_layout
 
 \begin_layout Subsubsection
@@ -945,7 +1132,7 @@ Table Window
 
 \begin_layout Standard
 A table window shows the matrix and its component values in a table.
- Standard UI interaction allows for changing single component values via
+ Standard GUI interaction allows for changing single component values via
  keyboard.
  When drawing the brush in an image window, table windows of the same matrix
  change their cell selection such that it highlights the components affected
@@ -1357,7 +1544,7 @@ name "fig:High-pass:-SDI"
 
 \end_inset
 
-High pass: SDI shows highligted edges
+High pass: SDI shows highlighted edges
 \end_layout
 
 \end_inset
@@ -1418,7 +1605,7 @@ name "fig:example-SDI-and-FDI"
 
 \end_inset
 
-SDI and FDI from the exercises' intermediate and final steps 
+SDI and FDI displaying intermediate and final steps from the exercises 
 \end_layout
 
 \end_inset
@@ -1648,7 +1835,7 @@ noprefix "false"
 \end_inset
 
 ).
- The SDI immerdiately shows highlighted edges (figure 
+ The SDI immediately shows highlighted edges (figure 
 \begin_inset CommandInset ref
 LatexCommand formatted
 reference "fig:High-pass:-SDI"
@@ -1706,7 +1893,7 @@ noprefix "false"
 
 \begin_layout Standard
 Additional questions: What patterns do you expect when applying the other
- brush types instead? Or different bruh sizes?
+ brush types instead? Or different brush sizes?
 \end_layout
 
 \begin_layout Subsection
@@ -1724,10 +1911,13 @@ Technical description
 \color red
 TODO: rundown of components, tools and runtime requirements:
 \color inherit
- Java 7, swing library and programming model, swing jtable extension for
- selection feedback, opencv 2.4.9 for dct (mention reason: digitla image processin
-g class), maven fragment nu.pattern.opencv for opencv/java-bindings, Eclipse
- Neon 4.6, ubuntu 14.04 LTS, github 
+ Java 7, swing library and programming model, swing JTable extension for
+ selection feedback, OpenCV 2.4.9 for DCT (mention reason: digital image processin
+g class), maven fragment 
+\emph on
+nu.pattern.opencv
+\emph default
+ for OpenCV/Java-bindings, Eclipse Neon 4.6, Ubuntu 14.04 LTS, github 
 \begin_inset CommandInset href
 LatexCommand href
 name "https://github.com/jkutk/iaip-dct"
