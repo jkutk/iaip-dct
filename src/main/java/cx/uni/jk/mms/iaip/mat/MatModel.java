@@ -86,10 +86,10 @@ public class MatModel {
 	/**
 	 * loads and decodes an image with Java ImageIO.
 	 * 
-	 * drawback: only gray scale images allowed, fewer file types supported. @see
-	 * <a
-	 * href="http://docs.oracle.com/javase/tutorial/2d/images/loadimage.html">
-	 * java tutorials</a> for details.
+	 * drawback: only gray scale images allowed, fewer file types
+	 * supported. @see <a href=
+	 * "http://docs.oracle.com/javase/tutorial/2d/images/loadimage.html"> java
+	 * tutorials</a> for details.
 	 * 
 	 * @throws UnsupportedImageTypeException
 	 *             if the image is not an 8 bit gray scale image.
@@ -104,7 +104,7 @@ public class MatModel {
 			cvType = CvType.CV_8U;
 			break;
 		default:
-			throw new UnsupportedImageTypeException();
+			throw new UnsupportedImageTypeException("The image is not an 8 bit gray scale image.");
 		}
 
 		Mat mat = new Mat(img.getHeight(), img.getWidth(), cvType);

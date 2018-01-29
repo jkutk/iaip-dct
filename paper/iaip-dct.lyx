@@ -178,9 +178,9 @@ literal "false"
 \end_inset
 
  reflects the relevance of this technique in the respective field.
- The curriculum comprises multiple classes where Discrete Cosine Transformation
- (DCT) is an important topic, for example, lectures and exercises on multimedia
- systems and a course on digital image processing.
+ The curriculum comprises multiple classes where DCT is an important topic,
+ for example, lectures and exercises on multimedia systems and a course
+ on digital image processing.
 \end_layout
 
 \begin_layout Standard
@@ -323,14 +323,14 @@ literal "false"
  from 1974, DCT was defined as a tool in digital image processing for the
  purpose of feature selection in pattern recognition and for scalar-type
  Wiener filtering.
- The goal was to create an orthogonal transform along with an algorithm
+ The goal was to create an orthogonal transformation along with an algorithm
  that allows its fast computation.
  After the mathematical definition of the DCT, the paper develops an algorithm
  which uses the fast Fourier transform (FFT) as the basis for the DCT and
  its inverse operation, the IDCT.
  The paper states, that DCT can be used in multiple dimensions, that is,
  the rows and columns of an image.
- Nevertheless, it does not mention the idea of using DCT for image compression.
+ It does, however, not mention the idea of using DCT for image compression.
 \end_layout
 
 \begin_layout Subsection
@@ -572,7 +572,7 @@ User Manual
 
 \begin_layout Standard
 This section describes the elements of the user interface, explains their
- effects, and outlines relevant user cases.
+ effects, and outlines relevant use cases.
  The user interface comprises multiple windows of different types.
  The GUI overview in 
 \begin_inset CommandInset ref
@@ -747,7 +747,8 @@ File
 
 \SpecialChar ldots
  opens an image file from the file system via the standard file dialog.
- Colored images will automatically convert to grayscale.
+ Images must be of type JPEG, PNG or TIFF, with 8 bits per pixel grayscale,
+ and of even height and even width.
  The image window scales the matrix visualization to fit into the window.
 \end_layout
 
@@ -810,10 +811,12 @@ PNG
 
 \SpecialChar ldots
  saves the whole matrix visualization image to the file system, ignoring
- the image window viewport.
+ the image window's viewport transformation.
  The image file is always of type PNG, no matter what extension the file
  name features.
- This function created all image files used in figure 
+ It will be an 8 bit grayscale image if the matrix visualization does not
+ use color, so it is ready to be opened with the menu item above.
+ We used this function to create the image files used in figure 
 \begin_inset CommandInset ref
 LatexCommand formatted
 reference "fig:example-SDI-and-FDI"
@@ -844,7 +847,7 @@ To
 \end_inset
 
 Clipboard copies the whole matrix visualization image into the system clipboard,
- ignoring the image window viewport.
+ ignoring the image window's viewport transformation.
 \end_layout
 
 \begin_layout Standard
@@ -1167,6 +1170,165 @@ reference "subsec:Image-Window"
 \end_layout
 
 \begin_layout Subsection
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Technical-description"
+
+\end_inset
+
+Technical Description
+\end_layout
+
+\begin_layout Standard
+This section provides a list of the application's runtime requirements,
+ the components it uses, and the tools and environments used to create it.
+ It gives an overview of the most important parts in the application source
+ code and highlights selected elements.
+\end_layout
+
+\begin_layout Subsubsection
+Runtime Requirements, Components, and Tools
+\end_layout
+
+\begin_layout Standard
+The application needs a 
+\emph on
+Java 7 SE
+\emph default
+ (or later) runtime to execute, we used 
+\emph on
+OpenJDK
+\emph default
+ 7 during development.
+ For the user interface, we rely on the 
+\emph on
+Swing API
+\emph default
+, its programming model, and its components, with an extension of the JTable
+ explained in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "subsec:JTable-Extension"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+We chose 
+\emph on
+Open Source Computer Vision Library
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "_opencv_2017"
+literal "false"
+
+\end_inset
+
+ (OpenCV version 2.4.9) to provide for both the DCT operations.
+ In order to use this particular version of OpenCV, we depend on matching
+ Java bindings provided by the 
+\emph on
+Maven
+\emph default
+ fragment 
+\emph on
+nu.pattern.opencv
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "_opencv:_2017"
+literal "false"
+
+\end_inset
+
+version 2.4.9-7 by 
+\emph on
+PatternConsulting.
+\end_layout
+
+\begin_layout Standard
+For the Java development tasks we employed the 
+\emph on
+Eclipse Luna 4.4 
+\emph default
+IDE, with plugins for
+\emph on
+ Maven
+\emph default
+ and 
+\emph on
+git
+\emph default
+.
+ We relied on \SpecialChar LyX
+ and therefore on \SpecialChar LaTeX
+ for creating this paper.
+ All applications used and created run on 
+\emph on
+Ubuntu 14.04 LTS
+\emph default
+, which in turn runs on a standard notebook from 2011.
+\end_layout
+
+\begin_layout Standard
+
+\color red
+TODO: JAR!
+\end_layout
+
+\begin_layout Standard
+.
+\end_layout
+
+\begin_layout Standard
+.
+\end_layout
+
+\begin_layout Standard
+.
+\end_layout
+
+\begin_layout Subsubsection
+OpenCV library
+\end_layout
+
+\begin_layout Standard
+The OpenCV library is obviously overkill for the DCT alone, and its use
+ has a historical background.
+ We created the first version of this application in an effort to kill two
+ birds with one stone while we attended the aforementioned classes took
+ part in two cl covered the namely to cover two administratively unrelated
+ assignments.
+ The 
+\end_layout
+
+\begin_layout Subsubsection
+Source Code
+\end_layout
+
+\begin_layout Subsubsection
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:JTable-Extension"
+
+\end_inset
+
+JTable Extension
+\end_layout
+
+\begin_layout Standard
+asdf
+\end_layout
+
+\begin_layout Section
 \begin_inset CommandInset label
 LatexCommand label
 name "subsec:Exercises"
@@ -1626,7 +1788,7 @@ SDI and FDI displaying intermediate and final steps from the exercises
 
 \end_layout
 
-\begin_layout Subsubsection
+\begin_layout Subsection
 Identity Matrix
 \end_layout
 
@@ -1656,7 +1818,7 @@ Additional questions: Are there any other simple matrices showing visual
  similarities in the SDI and FDI?
 \end_layout
 
-\begin_layout Subsubsection
+\begin_layout Subsection
 JPEG DCT
 \end_layout
 
@@ -1742,7 +1904,7 @@ noprefix "false"
  for n=2)?
 \end_layout
 
-\begin_layout Subsubsection
+\begin_layout Subsection
 JPEG Quantization Loss / Low-Pass Filter
 \end_layout
 
@@ -1814,7 +1976,7 @@ Additional questions: What is similar or different to the effect seen before,
  from left to right and back, slowly moving to the top?
 \end_layout
 
-\begin_layout Subsubsection
+\begin_layout Subsection
 Edge detection / High-Pass Filter
 \end_layout
 
@@ -1866,7 +2028,7 @@ Additional questions: How does the brush size influence the kind of edges
  change the character of the filter operation?
 \end_layout
 
-\begin_layout Subsubsection
+\begin_layout Subsection
 Large-Scale Self-Similarity
 \end_layout
 
@@ -1908,39 +2070,6 @@ Additional questions: What patterns do you expect when applying the other
  brush types instead? Or different brush sizes?
 \end_layout
 
-\begin_layout Subsubsection
-\begin_inset CommandInset label
-LatexCommand label
-name "subsec:Technical-description"
-
-\end_inset
-
-Technical description
-\end_layout
-
-\begin_layout Standard
-
-\color red
-TODO: rundown of components, tools and runtime requirements:
-\color inherit
- Java 7, swing library and programming model, swing JTable extension for
- selection feedback, OpenCV 2.4.9 for DCT (mention reason: digital image processin
-g class), maven fragment 
-\emph on
-nu.pattern.opencv
-\emph default
- for OpenCV/Java-bindings, Eclipse Neon 4.6, Ubuntu 14.04 LTS, github 
-\begin_inset CommandInset href
-LatexCommand href
-name "https://github.com/jkutk/iaip-dct"
-target "https://github.com/jkutk/iaip-dct"
-literal "false"
-
-\end_inset
-
-
-\end_layout
-
 \begin_layout Section
 \begin_inset CommandInset label
 LatexCommand label
@@ -1966,6 +2095,12 @@ TODO: dann das Evaluation als volles kapitel.
 \color red
 TODO: explanation of design choices for matrix visualization yellow/cyan
  goes here?
+\end_layout
+
+\begin_layout Standard
+
+\color red
+TODO: talk demo in dip class?
 \end_layout
 
 \begin_layout Standard
@@ -2024,7 +2159,9 @@ literal "false"
  interface, so that many students can implement the DCT algorithm in a single
  method, as part of an exercise assignment.
  Enable importing CSV files.
- Add a simple way to copy the SD matrix to FDI or vice-versa.
+ Open color images and interpret red an blue channel with different sign,
+ according to the matrix visualization chosen.
+ Add a simple way to copy the SD matrix over FD and vice-versa.
  Make the brush border visible while hovering over the image representations.
  Apply DCT or any of the other transforms to audio data, with graphical
  representations of amplitude over time and frequency spectrum over time,
@@ -2050,8 +2187,18 @@ We have successfully created the interactive application we planned in the
  these using the brush.
  On top of that, we encourage anyone who is interested to extend this set
  of learning material in any useful way.
- Therefore we release the source code of the application, and the source
- code and imagess of this paper, under a GPL license on github.
+ Therefore we release the source code and images of the application, and
+ the source code and images of this paper, under the GPL 3.0 license on github:
+ 
+\begin_inset CommandInset href
+LatexCommand href
+name "https://github.com/jkutk/iaip-dct"
+target "https://github.com/jkutk/iaip-dct"
+literal "false"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
