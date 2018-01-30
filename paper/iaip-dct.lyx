@@ -92,16 +92,8 @@
 
 \begin_body
 
-\begin_layout Title
-Interactive Image Processing:
-\begin_inset Newline newline
-\end_inset
-
-Discrete Cosine Transformation
-\end_layout
-
 \begin_layout Author
-Peter Plaimer
+Peter Claimern
 \begin_inset Newline newline
 \end_inset
 
@@ -110,6 +102,14 @@ Johannes Kepler University Linz
 \end_inset
 
 dct-tool@tk.jku.at
+\end_layout
+
+\begin_layout Title
+Interactive Image Processing:
+\begin_inset Newline newline
+\end_inset
+
+Discrete Cosine Transformation
 \end_layout
 
 \begin_layout Abstract
@@ -283,28 +283,12 @@ Related work
 \end_layout
 
 \begin_layout Standard
-
-\color red
-TODO: was is das umfeld, "wir beschäftigen uns mit dct in bildern".
- referenzen sind bücher und papers.
- über jede refernz schreibat man was für das eigene thema drin intressant
- ist.
- unterkapitel thematisch bauen, zb bildkompression überhaupt verlustftei/verlust
-behaftet, verwendung in konkreten anwendungen.
- und was no cooler ist, zb fast forward dct (firma bioelektromech).
- 
-\end_layout
-
-\begin_layout Standard
-
-\color red
-TODO: section intro
-\end_layout
-
-\begin_layout Standard
-This section gives a brief overview of the related work from definition
- of DCT in 1974 via the JPEG standard from 1992 to todays usage of JPEG.
- 
+This section gives a brief overview of the related work.
+ First we look into the the original definition of DCT, and then we highlight
+ the part of the JPEG standard which defines the application and role of
+ DCT in the context of compressing images.
+ As we try to gain understanding of the nature of DCT in a visual way, we
+ are not interested in implementations optimized for speed or memory consumption.
 \end_layout
 
 \begin_layout Subsection
@@ -338,11 +322,10 @@ JPEG
 \end_layout
 
 \begin_layout Standard
-JPEG is today's de facto standard for lossy image compression of real-life
+JPEG is today's de-facto standard for lossy image compression of real-life
  photography material in consumer electronics, multimedia applications,
  and the World Wide Web in general.
- It uses DCT at its very core.
- 
+ It uses DCT in it very core.
 \end_layout
 
 \begin_layout Standard
@@ -530,8 +513,8 @@ v
 \begin_layout Standard
 The relatively simple structures of these equations provide a good opportunity
  for a coding exercise that aims to implement FDCT and IDCT of one 8 by
- 8 block extracted from an image.
- This, however is not in scope of this paper.
+ 8 block extracted from a single image component.
+ This, however, is not in the scope of this paper.
 \end_layout
 
 \begin_layout Section
@@ -545,19 +528,21 @@ Interactive Software Application
 \end_layout
 
 \begin_layout Standard
+This section presents the application in the form of a user manual.
+ This form can be helpful when doing the exercises proposed in section 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "subsec:Exercises"
+plural "false"
+caps "false"
+noprefix "false"
 
-\color red
-TODO: dann kapitel "was hab i jetzt eigenclih gmacht" mit schönen titel.
- kurz komponenten bzw elemte aufzähle nud wie sie zsammarbeiten, zb maven,
- opencv artifact, jtable genau das aktualiesierne was pinseln geändert.
- 
-\end_layout
+\end_inset
 
-\begin_layout Standard
-This section contains the user manual and gives examples for questions to
- be answered by students.
- It furthermore provides an architecture overview of the application and
- details for building the application from source.
+.
+ It furthermore provides a technical description of the application including
+ a description of its components, libraries, source code, and implementation
+ highlights.
 \end_layout
 
 \begin_layout Subsection
@@ -933,17 +918,22 @@ to
 \begin_inset space ~
 \end_inset
 
-grey is based on 
-\color red
-TODO:REF-tönnies2005?
-\color inherit
-, which recommends a conversion to a grayscale image using a logarithmic
- scale.
+grey is based on on a method we picked up in the 
+\emph on
+Digital Image Processing
+\emph default
+ class.
+ That method employs a logarithmic scale for the conversion to a grayscale
+ image.
  In order to avoid the impossible calculation of the logarithm of values
- less than one, he introduces the addition of 1 before the log operation.
+ equal or less than zero, it proceeds in two steps.
+ First, it uses only the absolute value of the component, so the negative
+ values are not lost, but look like their positive counterparts.
+ The second step adds 1 just before the log operation.
  This way, the intuitive mapping of component value 0 to pixel brightness
- 0 is still intact.
- The actual implementation employs automatic contrast adaption after that,
+ 0 is still intact, and higher values yield brighter pixels from the logarithmic
+ scale.
+ Our actual implementation employs automatic contrast adaption after that,
  in order to use the maximum brightness value 255.
 \end_layout
 
@@ -968,20 +958,17 @@ reference "fig:GUI-Overview"
  for an example.
  Positive component values use yellow color, negative values use cyan, zero
  is black still.
- 
-\color red
-TODO: the following explanation into a separate section, maybe technical
- stuff?
-\color inherit
- We choose these colors with contemporary RGB displays and human perception
- in mind, and we aim for high brightness and contrast, while still retaining
+\end_layout
+
+\begin_layout Standard
+We want to highlight the design process regarding the latter visualization
+ option.
+ We chose these colors with contemporary RGB displays and human perception
+ in mind, and we aimed for high brightness and contrast, while still retaining
  good color separation for positive and negative signs.
  The green color component of pixels in these displays is the color with
- the best reception and resolution in the human eye 
-\color red
-TODO:REF_something
-\color inherit
-, yielding high brightness and contrast.
+ the best reception and resolution in the human eye, yielding high brightness
+ and contrast.
  We use green for both signs in order to leverage these favorable attributes
  in all cases.
  With the same brightness, we add either red or blue, depending on the sign.
@@ -1069,10 +1056,6 @@ size
  The strength of the effect on other components decreases with their distance
  from the center of the brush.
  It is minimal for components on the edge of the disk.
- 
-\color red
-TODO: explain this particular application of alpha blending in a separate
- section?
 \end_layout
 
 \end_deeper
@@ -1134,7 +1117,7 @@ brush value
  a multiplication for the PMB and a division for the SMB.
  For example, value 125 represents 125 percent, which equals the number
  1.25 in decimal notation.
- I will therefore increase the component value by one fourth when using
+ It will therefore increase the component value by one fourth when using
  the PMB and reduce it by one fifth when applied by the SMB.
 \end_layout
 
@@ -1164,8 +1147,7 @@ reference "subsec:Image-Window"
 
 \end_inset
 
-.
- minus the image export functions.
+, minus the image export functions.
  
 \end_layout
 
@@ -1181,41 +1163,31 @@ Technical Description
 
 \begin_layout Standard
 This section provides a list of the application's runtime requirements,
- the components it uses, and the tools and environments used to create it.
+ the components and libraries it uses, and the tools and environments used
+ to create it.
  It gives an overview of the most important parts in the application source
- code and highlights selected elements.
+ code and highlights selected elements of the implementation.
 \end_layout
 
 \begin_layout Subsubsection
-Runtime Requirements, Components, and Tools
+Dependencies and Tools
 \end_layout
 
 \begin_layout Standard
-The application needs a 
+The application depends on a 
 \emph on
 Java 7 SE
 \emph default
- (or later) runtime to execute, we used 
+ (or later) runtime to execute; we used 
 \emph on
 OpenJDK
 \emph default
- 7 during development.
+ version 7 during development.
  For the user interface, we rely on the 
 \emph on
 Swing API
 \emph default
-, its programming model, and its components, with an extension of the JTable
- explained in 
-\begin_inset CommandInset ref
-LatexCommand formatted
-reference "subsec:JTable-Extension"
-plural "false"
-caps "false"
-noprefix "false"
-
-\end_inset
-
-.
+, its programming model, its GUI components, and its extensibility.
 \end_layout
 
 \begin_layout Standard
@@ -1251,7 +1223,7 @@ literal "false"
 
 version 2.4.9-7 by 
 \emph on
-PatternConsulting.
+Pattern-consulting.
 \end_layout
 
 \begin_layout Standard
@@ -1259,7 +1231,7 @@ For the Java development tasks we employed the
 \emph on
 Eclipse Luna 4.4 
 \emph default
-IDE, with plugins for
+IDE, with plug-ins for
 \emph on
  Maven
 \emph default
@@ -1278,54 +1250,250 @@ Ubuntu 14.04 LTS
 , which in turn runs on a standard notebook from 2011.
 \end_layout
 
-\begin_layout Standard
-
-\color red
-TODO: JAR!
-\end_layout
-
-\begin_layout Standard
-.
-\end_layout
-
-\begin_layout Standard
-.
-\end_layout
-
-\begin_layout Standard
-.
-\end_layout
-
 \begin_layout Subsubsection
-OpenCV library
+OpenCV Library
 \end_layout
 
 \begin_layout Standard
 The OpenCV library is obviously overkill for the DCT alone, and its use
  has a historical background.
  We created the first version of this application in an effort to kill two
- birds with one stone while we attended the aforementioned classes took
- part in two cl covered the namely to cover two administratively unrelated
- assignments.
- The 
+ birds with one stone while we attended the aforementioned classes in the
+ same semester.
+ The exercises in multimedia systems required us to implement a novel multimedia
+ system of our choice; and the class on digital image processing required
+ us to give a presentation on an application or library in that field, where
+ we chose to look into OpenCV.
+ In order to provide a first hand experience report we started tinkering
+ with the library and quickly realized the potential to use it to create
+ a novel multi application which is at the same time a demo on how to use
+ OpenCV.
+ Both course instructors affirmed the plan.
 \end_layout
 
 \begin_layout Subsubsection
 Source Code
 \end_layout
 
-\begin_layout Subsubsection
-\begin_inset CommandInset label
-LatexCommand label
-name "subsec:JTable-Extension"
-
+\begin_layout Standard
+\begin_inset FormulaMacro
+\newcommand{\classname}[1]{\texttt{#1}}
+{\texttt{#1}}
 \end_inset
 
-JTable Extension
+The github repository consists of one eclipse project which includes all
+ sources and images used to build and run the application.
+ 
+\color red
+The project root contains one directory dedicated to the paper.
+ TODO: not smart.
+ 
+\color inherit
+We use Maven as build system mainly to manage dependencies and pull the
+ relevant files on the one hand, and on the other hand it allows us to create
+ a JAR to deploy the application as single file.
+
+\color red
+ TODO: true? ...
+ That is, minus the OpenCV library runtime required to be installed on the
+ target machine.
 \end_layout
 
 \begin_layout Standard
-asdf
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{sloppypar}
+\end_layout
+
+\end_inset
+
+All application code resides in the package 
+\begin_inset Formula $\classname{cx.uni.jk.mms.iaip}$
+\end_inset
+
+, which is is therefore the package which all the names of packages and
+ classes in the technical description are relative to.
+ All package, classes and methods feature Javadoc and other comments we
+ deem suitable for anyone diving into the code in order to enhance the applicati
+on or just out of curiosity.
+\end_layout
+
+\begin_layout Standard
+The application's 
+\begin_inset Formula $\classname{main()}$
+\end_inset
+
+ method resides in 
+\begin_inset Formula $\classname{main.DCT}$
+\end_inset
+
+ which on startup creates a 
+\begin_inset Formula $\classname{main.MainModel}$
+\end_inset
+
+ and a 
+\begin_inset Formula $\classname{main.MainController}$
+\end_inset
+
+ instance.
+ The latter creates one 
+\begin_inset Formula $\classname{image.ImageController}$
+\end_inset
+
+ and one 
+\begin_inset Formula $\classname{table.MatTableController}$
+\end_inset
+
+ for each of the two 
+\begin_inset Formula $\classname{mat.MatModels}$
+\end_inset
+
+ representing the spatial domain matrix and the frequency domain matrix.
+ It creates as a 
+\begin_inset Formula $\classname{brush.BrushController}$
+\end_inset
+
+ with a new 
+\begin_inset Formula $\classname{brush.brushModel}$
+\end_inset
+
+.
+ Next, the controller for the brush is called to create a 
+\begin_inset Formula $\classname{brush.BrushView}$
+\end_inset
+
+ and the image controllers are to create one 
+\begin_inset Formula $\classname{image.ImageView}$
+\end_inset
+
+ each.
+ This 
+\begin_inset Formula $\classname{main.MainController}$
+\end_inset
+
+ instance places all these views onto the screen in order to create the
+ initial layout comprising the top three windows in figure 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "fig:GUI-Overview"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ From this description one can see that we follow Swing's separable-model-and-vi
+ew design 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "_swing_????"
+literal "false"
+
+\end_inset
+
+ flavor of MVC in practically all parts of the application.
+\end_layout
+
+\begin_layout Standard
+Our 
+\begin_inset Formula $\classname{image.MouseAdapterScaling}$
+\end_inset
+
+ class acts as an adapter or proxy converting Swing's window-relative mouse
+ pointer screen coordinates we receive in 
+\begin_inset Formula $\classname{image.ImageView}$
+\end_inset
+
+.
+ Based on the image's current zoom factor, it converts screen coordinates
+ into matrix-component coordinates we can use to manipulate the underlying
+ matrix with the brush.
+\end_layout
+
+\begin_layout Standard
+While the 
+\begin_inset Formula $\classname{brush}$
+\end_inset
+
+ package contains the brush model and configuration GUI, the actual manipulation
+ of the matrix based on the model is part of the 
+\begin_inset Formula $\classname{tools.SimpleBrushTool}$
+\end_inset
+
+class.
+ The concrete implementation uses alpha blending of multiple copies of the
+ area under the brush in order to interpolate the brush's effect, especially
+ when using the 
+\emph on
+soft circle
+\emph default
+ shape.
+ 
+\end_layout
+
+\begin_layout Standard
+The 
+\begin_inset Formula $\classname{rectangularJTable}$
+\end_inset
+
+ package's sole purpose is to enhance Swing's 
+\begin_inset Formula $\classname{JTable}$
+\end_inset
+
+ and its 
+\begin_inset Formula $\classname{TableModel}$
+\end_inset
+
+ with a way to inform listeners about a data change event concerning a rectangul
+ar region of cells, instead of just single cells, a range of rows in one
+ column, or all cells.
+ We use this enhancement in order to give visual feedback in matrix table
+ views, by highlighting the matrix components which were affected by the
+ brush.
+\end_layout
+
+\begin_layout Standard
+In the 
+\begin_inset Formula $\classname{filter}$
+\end_inset
+
+ package one finds the implementations of the available matrix visualizations
+ described in section 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "subsec:Matrix-Visualization"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ It contains the 
+\begin_inset Formula $\classname{MatFilter}$
+\end_inset
+
+ interface implemented by all these visualizations, a well as a manager
+ class.
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{sloppypar}
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Section
@@ -2081,54 +2249,49 @@ Evaluation
 \end_layout
 
 \begin_layout Standard
-
-\color red
-TODO: dann das Evaluation als volles kapitel.
- ist es gut gegangen, was kann man damit jetzt wie gut tun.
- hat man ziele erreicht, gschickterweise in introduction was ziel ist und
- heir nur ja habs erreicht.
- 
-\end_layout
-
-\begin_layout Standard
-
-\color red
-TODO: explanation of design choices for matrix visualization yellow/cyan
- goes here?
-\end_layout
-
-\begin_layout Standard
-
-\color red
-TODO: talk demo in dip class?
-\end_layout
-
-\begin_layout Standard
-
-\color red
-TODO: short story bout problems during implementation.
- zb opencv artifact und java.nio passe nicht zsamm, oder opencv libpng problem
- und wie gelöst.
-\end_layout
-
-\begin_layout Standard
-
-\color red
-TODO: any positive surprises along the whole process of designing, implementing,
- evaluation ...?
-\end_layout
-
-\begin_layout Standard
 We have created an interactive application presenting DCT in an image processing
  context.
- The application is suitable for classroom demonstration, as well as exercise
- assignment and self-studies.
+ During its design and implementation phases, we faced unforeseen challenges.
+ For example, the need for alpha blending in order to apply a soft brush
+ to the matrix, and incompatibilities of image file processing libraries
+ in the Java API with the similar methods in the OpenCV library.
+ Not only have we overcome these technical challenges, we have also grown
+ with them.
+ Above that, we designed and implemented some unique GUI features.
+ For example, using a brush on a matrix interactively, providing visual
+ feedback of changes in a table, and the various matrix visualization strategies.
+ We consider the yellow/cyan matrix visualization to be a novel approach
+ in understanding matrices.
+\end_layout
+
+\begin_layout Standard
+In the current state the application is suitable for classroom demonstration,
+ as well as for exercise assignment and self-studies of the DCT.
  In order to aid all three scenarios, we provide a set of exercises covering
  a range of basic topics of DCT and its application in JPEG.
- An extensive user manual explains all options, functions, and their rationale.
- The technical section gives an overview of the components involved in creating
- the application and a rough outline of what it takes to re-build the applicatio
-n from its sources.
+ These exercises demonstrate that the application satisfies the needs of
+ our fellow students.
+ While thus list is a pool for a course instructor to pick from, it is also
+ not exhaustive.
+\end_layout
+
+\begin_layout Standard
+An extensive user manual explains all functions and options, and for some
+ items gives insight into their rationale.
+\end_layout
+
+\begin_layout Standard
+For the technically-oriented, we offer an overview of the application components
+, the libraries and tools involved, we skim all parts of the implementation
+ and take a closer look at some interesting details.
+ With this information, one will be able to build the application from the
+ source code we release in its entirety.
+\end_layout
+
+\begin_layout Standard
+Finally, we provide the source codes of this paper, too, so that anyone
+ extending the application can extend this document as well, for the sake
+ of consistency.
 \end_layout
 
 \begin_layout Section
