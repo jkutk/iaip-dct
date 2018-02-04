@@ -2,7 +2,7 @@
  *    Copyright (C) 2015  Peter Plaimer <dct-tool@tk.jku.at>
  *
  *    This file is part of the program
- *    Inter-Active Image Processing / Discrete Cosine Transformation (DCT) 
+ *    InterActive Image Processing / Discrete Cosine Transformation (DCT) 
  *
  *    This program is free software: you can redistribute it and/or modify
  *    it under the terms of the GNU General Public License as published by

@@ -2,9 +2,9 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>cx.uni.jk</groupId>
-	<artifactId>mms-project-iaipdct</artifactId>
-	<version>2015.0323.0030</version>
-	<name>Inter-Active Image Processing: Discrete Cosine Transformation (DCT)</name>
+	<artifactId>iaip-dct</artifactId>
+	<version>2018.0131.0545</version>
+	<name>Interactive Image Processing: Discrete Cosine Transformation (DCT)</name>
 	<dependencies>
 		<dependency>
 			<groupId>nu.pattern</groupId>

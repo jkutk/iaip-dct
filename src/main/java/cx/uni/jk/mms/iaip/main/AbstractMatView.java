@@ -2,7 +2,7 @@
  *    Copyright (C) 2015  Peter Plaimer <dct-tool@tk.jku.at>
  *
  *    This file is part of the program
- *    Inter-Active Image Processing / Discrete Cosine Transformation (DCT) 
+ *    InterActive Image Processing / Discrete Cosine Transformation (DCT) 
  *
  *    This program is free software: you can redistribute it and/or modify
  *    it under the terms of the GNU General Public License as published by
@@ -304,15 +304,41 @@ public abstract class AbstractMatView extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			JOptionPane.showMessageDialog(AbstractMatView.this,
-					"Inter-Active Image Processing / Discrete Cosine Transformation (DCT)\n\n"
-							+ "Copyright (C) 2015  Peter Plaimer <dct-tool@tk.jku.at>\n\n"
-							+ "This program is distributed in the hope that it will be useful,\n"
-							+ "but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
-							+ "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
-							+ "GNU General Public License for more details.\n\n"
-							+ "You should have received a copy of the GNU General Public License\n"
-							+ "along with this program.  If not, see <http://www.gnu.org/licenses/>.",
-					"About IAIP/DCT Version 2015.0323.0030", JOptionPane.INFORMATION_MESSAGE);
+					"InterActive Image Processing / Discrete Cosine Transformation (DCT)\n"
+							+ "\n"
+							+ "Copyright (C) 2015 Peter Plaimer <dct-tool@tk.jku.at>\n"
+							+ "\n"
+							+ "This program source code is distributed under the GNU GPL 3.0 license, see below.\n"
+							+ "Its binary form contains the OpenCV libraries from https://opencv.org as well as corresponding Java bindings and\n"
+							+ "packaging from https://github.com/PatternConsulting/opencv which are licensed under the 3-clause BSD License, see below.\n"
+							+ "\n"
+							+ "------------------------------------------\n"
+							+ "GNU GPL 3.0\n"
+							+ "This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+							+ "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.\n"
+							+ "You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.\n"
+							+ "------------------------------------------\n"
+							+ "3-clause BSD License\n"
+							+"By downloading, copying, installing or using the software you agree to this license.\n"
+							+"If you do not agree to this license, do not download, install, copy or use the software.\n"
+							+"                          License Agreement\n"
+							+"               For Open Source Computer Vision Library\n"
+							+"                       (3-clause BSD License)\n"
+							+"Redistribution and use in source and binary forms, with or without modification,\n"
+							+"are permitted provided that the following conditions are met:\n"
+							+"  * Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.\n"
+							+"  * Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer \n"
+							+"    in the documentation and/or other materials provided with the distribution.\n"
+							+"  * Neither the names of the copyright holders nor the names of the contributors may be used to endorse or promote products derived \n"
+							+"    from this software without specific prior written permission.\n"
+							+"This software is provided by the copyright holders and contributors \"as is\" and any express or implied warranties, including, but not limited to, the implied\n"
+							+"warranties of merchantability and fitness for a particular purpose are disclaimed. In no event shall copyright holders or contributors be liable for any direct,\n"
+							+"indirect, incidental, special, exemplary, or consequential damages (including, but not limited to, procurement of substitute goods or services;\n"
+							+"loss of use, data, or profits; or business interruption) however caused and on any theory of liability, whether in contract, strict liability,\n"
+							+"or tort (including negligence or otherwise) arising in any way out of the use of this software, even if advised of the possibility of such damage.\n"
+							+ "\n"
+							,
+					"About IAIP/DCT Version 1.0.0-pre", JOptionPane.INFORMATION_MESSAGE);
 		}
 	};
 
