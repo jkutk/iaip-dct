@@ -306,7 +306,7 @@ public abstract class AbstractMatView extends JFrame {
 			JOptionPane.showMessageDialog(AbstractMatView.this,
 					"InterActive Image Processing / Discrete Cosine Transformation (DCT)\n"
 							+ "\n"
-							+ "Copyright (C) 2015 Peter Plaimer <dct-tool@tk.jku.at>\n"
+							+ "Copyright (C) 2018 Peter Plaimer <dct-tool@tk.jku.at>\n"
 							+ "\n"
 							+ "This program source code is distributed under the GNU GPL 3.0 license, see below.\n"
 							+ "Its binary form contains the OpenCV libraries from https://opencv.org as well as corresponding Java bindings and\n"
@@ -338,7 +338,7 @@ public abstract class AbstractMatView extends JFrame {
 							+"or tort (including negligence or otherwise) arising in any way out of the use of this software, even if advised of the possibility of such damage.\n"
 							+ "\n"
 							,
-					"About IAIP/DCT Version 1.0.0-pre", JOptionPane.INFORMATION_MESSAGE);
+					"About IAIP/DCT Version 1.0.0", JOptionPane.INFORMATION_MESSAGE);
 		}
 	};
 
