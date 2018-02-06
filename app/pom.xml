@@ -3,8 +3,8 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>cx.uni.jk</groupId>
 	<artifactId>iaip-dct</artifactId>
-	<version>2018.0131.0545</version>
-	<name>Interactive Image Processing: Discrete Cosine Transformation (DCT)</name>
+	<version>1.0.0</version>
+	<name>InterActive Image Processing / Discrete Cosine Transformation (DCT)</name>
 	<dependencies>
 		<dependency>
 			<groupId>nu.pattern</groupId>
@@ -25,7 +25,7 @@
 			<plugin>
 				<artifactId>maven-assembly-plugin</artifactId>
 				<!-- see https://maven.apache.org/plugins/maven-assembly-plugin/usage.html -->
-				<version>2.2.1</version>
+				<version>2.3</version>
 				<configuration>
 					<archive>
 						<manifest>
@@ -49,5 +49,10 @@
 		</plugins>
 	</build>
 	<url>https://github.com/jkutk/iaip-dct</url>
-	<description>Interactive demonstration of DCT applied to an image. Features painting on the spatial or frequency domain matrix while giving instant visual feedback in the other domain. Editing the matrices as tables is supported as well, and produces the same feedback.</description>
+	<description>An interactive application demonstrating DCT applied to an image. Features painting on the spatial or frequency domain matrix while giving instant visual feedback in the other domain. Editing the matrices as tables is supported as well, and produces the same feedback. Includes example images and can open images from disk.
+
+The accompanying paper provides a user manual, training material for exercises in class, and some implementation details and building instructions.</description>
+	<scm>
+		<url>https://github.com/jkutk/iaip-dct.git</url>
+	</scm>
 </project>
