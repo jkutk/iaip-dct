@@ -545,6 +545,33 @@ noprefix "false"
  highlights.
 \end_layout
 
+\begin_layout Standard
+To run the application one needs a PC with any current Linux, MacOS, or
+ Windows, as well as a 
+\emph on
+Java Runtime Environment
+\emph default
+ (version 7 or later) on top of that.
+ The application's github site 
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://github.com/jkutk/iaip-dct
+\end_layout
+
+\end_inset
+
+, section 
+\emph on
+Releases
+\emph default
+, offers the application in the form of a self-contained JAR file to download
+ and execute.
+ The same section offers this paper as PDF file, too.
+\end_layout
+
 \begin_layout Subsection
 \begin_inset CommandInset label
 LatexCommand label
@@ -978,7 +1005,15 @@ We want to highlight the design process regarding the latter visualization
  display unused.
  We achieve high color separation, due to red and blue being on opposite
  sides of green in the color spectrum.
- We add no crosstalk, because we use a separate display sub-pixel per sign.
+ We add no crosstalk between the positive and negative sign 
+\begin_inset Quotes eld
+\end_inset
+
+channels
+\begin_inset Quotes erd
+\end_inset
+
+, because we use a separate display sub-pixel per sign.
 \end_layout
 
 \begin_layout Subsubsection
@@ -1178,14 +1213,57 @@ The application depends on a
 \emph on
 Java 7 SE
 \emph default
- (or later) runtime to execute; we used 
+ (or later) runtime to execute on a current Linux, MacOS or Windows PC.
+ We used 
 \emph on
 OpenJDK
 \emph default
- version 7 during development.
- For the user interface, we rely on the 
+ version 7 on 
 \emph on
-Swing API
+Ubuntu 14.04 LTS
+\emph default
+ during development.
+ The latter is also the basis for all other tools we employed, and it runs
+ on a 2011 standard notebook.
+\end_layout
+
+\begin_layout Standard
+For the Java development tasks we employed the 
+\emph on
+Eclipse Luna 4.4 
+\emph default
+IDE, with plug-ins for
+\emph on
+ Maven
+\emph default
+ and 
+\emph on
+git
+\emph default
+.
+ 
+\emph on
+Maven
+\emph default
+ provides dependency management and resolution, as well as the ability to
+ package the application binary and resources into a JAR.
+ We use 
+\emph on
+git
+\emph default
+ for versioning source code, images, and other resources from both, the
+ application and this paper.
+ Furthermore, we use 
+\emph on
+git
+\emph default
+ to connect to the application's github site.
+\end_layout
+
+\begin_layout Standard
+For the application user interface, we rely on the 
+\emph on
+Java Swing API
 \emph default
 , its programming model, its GUI components, and its extensibility.
 \end_layout
@@ -1204,8 +1282,7 @@ literal "false"
 \end_inset
 
  (OpenCV version 2.4.9) to provide for both the DCT operations.
- In order to use this particular version of OpenCV, we depend on matching
- Java bindings provided by the 
+ In order to use this particular version of OpenCV, we depend on the 
 \emph on
 Maven
 \emph default
@@ -1221,33 +1298,18 @@ literal "false"
 
 \end_inset
 
-version 2.4.9-7 by 
+(version 2.4.9-7) by 
 \emph on
-Pattern-consulting.
+Pattern-consulting
+\emph default
+, which is a bundle of the library binaries for the Linux, MacOS, and Windows
+ platforms, and matching Java bindings.
 \end_layout
 
 \begin_layout Standard
-For the Java development tasks we employed the 
-\emph on
-Eclipse Luna 4.4 
-\emph default
-IDE, with plug-ins for
-\emph on
- Maven
-\emph default
- and 
-\emph on
-git
-\emph default
-.
- We relied on \SpecialChar LyX
- and therefore on \SpecialChar LaTeX
+We relied on \SpecialChar LyX
+ 2.3 and therefore on \SpecialChar LaTeX
  for creating this paper.
- All applications used and created run on 
-\emph on
-Ubuntu 14.04 LTS
-\emph default
-, which in turn runs on a standard notebook from 2011.
 \end_layout
 
 \begin_layout Subsubsection
@@ -1255,24 +1317,93 @@ OpenCV Library
 \end_layout
 
 \begin_layout Standard
-The OpenCV library is obviously overkill for the DCT alone, and its use
- has a historical background.
+The OpenCV library is obviously overkill for performing the DCT only, but
+ its use has a historical background.
  We created the first version of this application in an effort to kill two
- birds with one stone while we attended the aforementioned classes in the
- same semester.
+ birds with one stone while we attended the three aforementioned university
+ classes in the same semester.
  The exercises in multimedia systems required us to implement a novel multimedia
  system of our choice; and the class on digital image processing required
  us to give a presentation on an application or library in that field, where
  we chose to look into OpenCV.
  In order to provide a first hand experience report we started tinkering
  with the library and quickly realized the potential to use it to create
- a novel multi application which is at the same time a demo on how to use
- OpenCV.
+ a novel multimedia application which is at the same time a demo on how
+ to use OpenCV.
  Both course instructors affirmed the plan.
 \end_layout
 
 \begin_layout Subsubsection
-Source Code
+Github Repository and Building
+\end_layout
+
+\begin_layout Standard
+The repository's root directory contains the directory 
+\emph on
+app
+\emph default
+ which in turn contains an Eclipse project including all sources and images
+ used to build and run the application from source.
+ Import the Eclipse project from the git repository at 
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+https://github.com/jkutk/iaip-dct.git
+\end_layout
+
+\end_inset
+
+.
+ Wait for Maven until it has finished building the workspace, that is, downloadi
+ng all dependencies, then 
+\emph on
+Run as Java Application
+\emph default
+ on the spot.
+ In order to build a JAR file, one needs to have a not only a JRE but a
+ 
+\emph on
+Java Development Kit
+\emph default
+ (JDK) installed.
+ Once this requirement is met, inside Eclipse, right-click the 
+\emph on
+maven-package.launch
+\emph default
+ file and 
+\emph on
+Run as maven-launch
+\emph default
+ in order to obtain the self-contained JAR file at the location denoted
+ in the console output.
+\end_layout
+
+\begin_layout Standard
+The root directory's second child, 
+\emph on
+paper
+\emph default
+, holds the source code and images for this paper in the form of a \SpecialChar LyX
+ file.
+ Use \SpecialChar LyX
+ to create the PDF version of this paper or other types of derivatives
+ in the \SpecialChar LaTeX
+ ecosystem.
+\end_layout
+
+\begin_layout Standard
+These procedures created the JAR and PDF files available in the 
+\emph on
+Releases
+\emph default
+ section of the application's github site.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+Source Code Overview
 \end_layout
 
 \begin_layout Standard
@@ -1281,22 +1412,7 @@ Source Code
 {\texttt{#1}}
 \end_inset
 
-The github repository consists of one eclipse project which includes all
- sources and images used to build and run the application.
- 
-\color red
-The project root contains one directory dedicated to the paper.
- TODO: not smart.
- 
-\color inherit
-We use Maven as build system mainly to manage dependencies and pull the
- relevant files on the one hand, and on the other hand it allows us to create
- a JAR to deploy the application as single file.
 
-\color red
- TODO: true? ...
- That is, minus the OpenCV library runtime required to be installed on the
- target machine.
 \end_layout
 
 \begin_layout Standard
@@ -1405,8 +1521,8 @@ Our
 \begin_inset Formula $\classname{image.MouseAdapterScaling}$
 \end_inset
 
- class acts as an adapter or proxy converting Swing's window-relative mouse
- pointer screen coordinates we receive in 
+ class acts as an adapter converting Swing's window-relative mouse pointer
+ screen coordinates we receive in 
 \begin_inset Formula $\classname{image.ImageView}$
 \end_inset
 
