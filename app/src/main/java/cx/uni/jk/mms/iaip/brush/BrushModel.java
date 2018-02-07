@@ -126,12 +126,12 @@ public class BrushModel {
 			Core.add(this.alphaMat, new Scalar(1.0f), this.alphaMat);
 			break;
 		case CIRCLE:
-			Core.circle(this.alphaMat, new Point((this.size - 1) * 0.5d, (this.size - 1) * 0.5d), (this.size - 1) / 2,
+			Imgproc.circle(this.alphaMat, new Point((this.size - 1) * 0.5d, (this.size - 1) * 0.5d), (this.size - 1) / 2,
 					new Scalar(1.0f), -1);
 			break;
 		case SOFT_CIRCLE: {
 			Mat temp = this.alphaMat.clone();
-			Core.circle(temp, new Point((this.size - 1) * 0.5d, (this.size - 1) * 0.5d), (this.size - 1) / 4, new Scalar(1.0f),
+			Imgproc.circle(temp, new Point((this.size - 1) * 0.5d, (this.size - 1) * 0.5d), (this.size - 1) / 4, new Scalar(1.0f),
 					-1);
 			Imgproc.blur(temp, this.alphaMat, new Size(this.size * 0.5d, this.size * 0.5d));
 		}

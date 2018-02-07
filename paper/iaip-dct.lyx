@@ -570,6 +570,7 @@ Releases
 , offers the application in the form of a self-contained JAR file to download
  and execute.
  The same section offers this paper as PDF file, too.
+ The current version of both, the application and the paper, is 1.0.1.
 \end_layout
 
 \begin_layout Subsection
@@ -1281,26 +1282,26 @@ literal "false"
 
 \end_inset
 
- (OpenCV version 2.4.9) to provide for both the DCT operations.
+ (OpenCV version 3.2.0) to provide for both the DCT operations.
  In order to use this particular version of OpenCV, we depend on the 
 \emph on
 Maven
 \emph default
  fragment 
 \emph on
-nu.pattern.opencv
-\emph default
- 
+nu.pattern.opencv 
 \begin_inset CommandInset citation
 LatexCommand cite
-key "_opencv:_2017"
+key "_opencv:_2018"
 literal "false"
 
 \end_inset
 
-(version 2.4.9-7) by 
+ 
+\emph default
+(version 3.2.0-1) by 
 \emph on
-Pattern-consulting
+OpenPnp
 \emph default
 , which is a bundle of the library binaries for the Linux, MacOS, and Windows
  platforms, and matching Java bindings.

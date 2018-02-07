@@ -310,7 +310,7 @@ public abstract class AbstractMatView extends JFrame {
 							+ "\n"
 							+ "This program source code is distributed under the GNU GPL 3.0 license, see below.\n"
 							+ "Its binary form contains the OpenCV libraries from https://opencv.org as well as corresponding Java bindings and\n"
-							+ "packaging from https://github.com/PatternConsulting/opencv which are licensed under the 3-clause BSD License, see below.\n"
+							+ "packaging from https://github.com/openpnp/opencv which are licensed under the 3-clause BSD License, see below.\n"
 							+ "\n"
 							+ "------------------------------------------\n"
 							+ "GNU GPL 3.0\n"
@@ -338,7 +338,7 @@ public abstract class AbstractMatView extends JFrame {
 							+"or tort (including negligence or otherwise) arising in any way out of the use of this software, even if advised of the possibility of such damage.\n"
 							+ "\n"
 							,
-					"About IAIP/DCT Version 1.0.0", JOptionPane.INFORMATION_MESSAGE);
+					"About IAIP/DCT Version 1.0.1", JOptionPane.INFORMATION_MESSAGE);
 		}
 	};
 

@@ -44,7 +44,7 @@ import org.opencv.core.Mat;
 import org.opencv.core.MatOfByte;
 import org.opencv.core.Rect;
 import org.opencv.core.Size;
-import org.opencv.highgui.Highgui;
+import org.opencv.imgcodecs.Imgcodecs;
 
 /**
  * Application model for one OpenCV {@link Mat} providing basic methods
@@ -129,7 +129,7 @@ public class MatModel {
 		 */
 		BufferedImage img = ImageIO.read(path.toUri().toURL());
 		Mat bufMat = new MatOfByte(((DataBufferByte) img.getRaster().getDataBuffer()).getData());
-		return Highgui.imdecode(bufMat, Highgui.IMREAD_GRAYSCALE);
+		return Imgcodecs.imdecode(bufMat, Imgcodecs.IMREAD_GRAYSCALE);
 	}
 
 	/**
@@ -147,7 +147,7 @@ public class MatModel {
 		 * into memory before decoding with Highgui.imdecode().
 		 */
 		Mat bufMat = new MatOfByte(Files.readAllBytes(path));
-		return Highgui.imdecode(bufMat, Highgui.IMREAD_GRAYSCALE);
+		return Imgcodecs.imdecode(bufMat, Imgcodecs.IMREAD_GRAYSCALE);
 	}
 
 	/**
@@ -214,7 +214,7 @@ public class MatModel {
 		double beta = -min * alpha;
 		this.mat.convertTo(cloneMat, CvType.CV_8U, alpha, beta);
 
-		Highgui.imwrite(file.getPath(), cloneMat);
+		Imgcodecs.imwrite(file.getPath(), cloneMat);
 	}
 
 	public void saveMatAsCsv(File file) {

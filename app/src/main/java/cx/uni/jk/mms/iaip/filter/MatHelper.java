@@ -30,7 +30,7 @@ import javax.imageio.ImageIO;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfByte;
-import org.opencv.highgui.Highgui;
+import org.opencv.imgcodecs.Imgcodecs;
 
 /**
  * This class provides helper methods for converting to and from {@link Mat} 
@@ -58,7 +58,7 @@ public class MatHelper {
 
 		/** encode to .bmp file in memory */
 		MatOfByte fileMat = new MatOfByte();
-		Highgui.imencode(".bmp", byteMat, fileMat);
+		Imgcodecs.imencode(".bmp", byteMat, fileMat);
 
 		/** use file as input stream for BufferdImage */
 		byte[] byteArray = fileMat.toArray();
